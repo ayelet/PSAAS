@@ -8,7 +8,7 @@ const validate = (id) => {
   if (!id || id < 0) return false;
   return true;
 };
-// 1. Get all providers
+// 1. Get all providers --
 const getProviders = async (res) => {
   try {
     const providers = await providerModel.find({});
