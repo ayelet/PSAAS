@@ -24,7 +24,10 @@ router
   .get("users/me", auth, (req, res) => {
     usersController.getUserProfile(req, res);
   })
-  .post("users/", (req, res) => {
+  // @route POST api/users
+  //@desc Create a new user
+  //@access public
+  .post("/", (req, res) => {
     console.log("POST: Add user", req.body);
     usersController.addUser(req, res);
   })
@@ -44,7 +47,10 @@ router
     console.log("Update existing user", req.params.id);
     usersController.updateUser(req, res);
   })
-  .delete("users/:id", (req, res) => {
+  // @route DELETE api/users/:id
+  //@desc Delete an existing user
+  //@access public
+  .delete("/:id", (req, res) => {
     console.log("Delete user ", req.params.id);
     usersController.deleteUser(req, res);
     //TODO: delete user from providers and consumers

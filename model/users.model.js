@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 // const accountModel = require("./accounts.model");
 
 const userSchema = mongoose.Schema({
+  _id: mongoose.ObjectId,
   first_name: {
     type: String,
     trim: true,

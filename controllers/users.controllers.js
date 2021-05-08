@@ -1,4 +1,5 @@
 // const roomModel = require("../db/model");
+const { ObjectID } = require("bson");
 const userModel = require("../model/users.model");
 
 // Helper functions
@@ -9,12 +10,21 @@ const validate = (id) => {
 // 1. Get all users
 const getUsers = async (req, res) => {
   try {
+    let users;
     console.log(__filename, "Get users", userModel);
-    const users = await userModel.find({});
-    const usersSorted = await users.sort({ name: -1 });
-    console.log("Users found:", usersSorted);
-    if (!users) return res.status(404).send("No users found");
-    return res.status(200).send(usersSorted);
+    // const users = await userModel.find({});
+    userModel.find({}, null, { sort: { last_name: 1 } }, function (err, users) {
+      if (err) {
+        console.log(err);
+        process.exit(1);
+      }
+      console.log(users);
+      if (!users) return res.status(404).send("No users found");
+      return res.status(200).send(users);
+      process.exit(0);
+    });
+    // const usersSorted = await users.sort({ name: -1 });
+    // console.log("Users found:", users);
   } catch (err) {
     console.log("Error in getUsers", err);
     return res.status(500).send({ error: err });
@@ -46,11 +56,10 @@ const getUserProfile = async (req, res) => {
 // 3. add a new user
 const addUser = async (req, res) => {
   console.log(req.body);
-  // const { roomReq } = req.body;
   const date = Date.now();
   if (req.body.dateAdded) date = req.body.dateAdded;
-  //   console.log("date Added: ", date);
   const user = new userModel({
+    _id: new ObjectID(),
     user_id: req.body.user_id,
     first_name: req.body.first_name,
     last_name: req.body.last_name,
@@ -136,14 +145,22 @@ const logoutAll = async (req, res) => {
 // Delete a specific user by its id
 const deleteUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    if (!validateId(id))
-      return res.status(400).send("Bad request, invalide ID");
+    const id = req.params.id;
+    console.log("***UserController:DeleteUser ", req.params.id);
+    console.log("id: ", id);
+    if (id.match(/^[0-9a-fA-F]{24}$/)) {
+      // Yes, it's a valid ObjectId, proceed with `findById` call.
+      console.log("Object id is a match!!!");
+    } else {
+      console.log("Error: Not an ObjectID!!!!");
+    }
+    // const id = mongoose.Types.ObjectId(req.params.id);
     let user = await userModel.findByIdAndDelete(id);
-    console.log("request to delete user ", id, user);
+    console.log("user deleted: ", user);
     if (!user) return res.status(404).send("user does not exist");
-    return res.status(201).send(user);
+    return res.status(202).send(user);
   } catch (err) {
+    console.log("UserController: Delete- Error thrown");
     return res.status(500).send(err);
   }
 };
