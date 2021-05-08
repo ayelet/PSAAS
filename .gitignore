@@ -1,5 +1,4 @@
 /node_modules
-/config
 /tests
 client/node_modules
 client/node_modules/.staging/jest-circus-c1df0de7/LICENSE

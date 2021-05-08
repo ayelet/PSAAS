@@ -12,20 +12,13 @@ app.use(express.json());
 app.use(cors());
 // app.use(loginRoute);
 // app.use(providersRoute);
-app.use("/api/users",usersRoute);
+app.use("/api/users", usersRoute);
 
 if (process.env.NODE_ENV === "production") {
-  // app.use(express.static(path.join(__dirname, "../client/build")));
-
-  /*
-app.use(express.static(path.join(__dirname, '../build')))
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build'))
-})
-*/
+  app.use(express.static("client/build"));
 
   app.get("*", (req, res) => {
-    res.sendfile(path.resolve(__dirname, "../client", "build", "index.html"));
+    res.sendfile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
 
