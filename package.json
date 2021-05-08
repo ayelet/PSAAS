@@ -1,0 +1,39 @@
+{
+  "name": "mern-psaas",
+  "version": "1.0.0",
+  "description": "\"MERN stack for a pet sitting board\"",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayelet/PSAAS.git"
+  },
+  "keywords": [
+    "MERN",
+    "Full",
+    "Stack"
+  ],
+  "author": "Ayelet Danieli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ayelet/PSAAS/issues"
+  },
+  "homepage": "https://github.com/ayelet/PSAAS#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "concurrently": "^6.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.7",
+    "validator": "^13.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
