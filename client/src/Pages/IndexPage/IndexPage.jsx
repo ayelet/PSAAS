@@ -8,7 +8,7 @@ import Dashboard from "../Dashboard/Dashboard";
 // import ContactPage from "../Contact/Contact";
 import HomePage from "../HomePage/HomePage";
 import Login from "../LogIn/LogIn";
-import useToken from "../../../App/useToken";
+import useToken from "../../App/useToken";
 import { ProvidersPage } from "../ProvidersPage/ProvidersPage";
 // import ProductDetail from "../Product/ProductDetail";
 // import NutritionCalculaotr from "./NutritionCalculator/NutritionCalculaotr";

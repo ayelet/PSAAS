@@ -1,10 +1,10 @@
 import "./ProvidersPage.css";
 
 import React from "react";
-import Filter from "../../Filter/Filter";
-import ProviderCard from "../../ProviderCard/ProviderCard";
-import FilterRating from "../../FilterRating/FilterRating";
-import FilterByDate from "../../FilterByDate/FilterByDate";
+import Filter from "../../components/Filter/Filter";
+import ProviderCard from "../../components/ProviderCard/ProviderCard";
+import FilterRating from "../../components/FilterRating/FilterRating";
+import FilterByDate from "../../components/FilterByDate/FilterByDate";
 
 export const ProvidersPage = () => {
   return (

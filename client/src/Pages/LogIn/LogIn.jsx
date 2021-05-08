@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import "./LogIn.css";
-import api from "../../../api/api";
+import api from "../../api/api";
 
 Login.propTypes = {
   setToken: PropTypes.func.isRequired,

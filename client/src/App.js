@@ -3,7 +3,7 @@ import "./App.css";
 // import welcome from "./assets/img/welcome.jpg";
 // import NavigationMenu from "./components/NavigationMenu/NavigationMenu";
 import { BrowserRouter } from "react-router-dom";
-import IndexPage from "./components/Pages/IndexPage/IndexPage";
+import IndexPage from "./Pages/IndexPage/IndexPage";
 import Layout from "./components/Layout/Layout";
 // import { useState } from "react";
 
