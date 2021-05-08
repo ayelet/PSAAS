@@ -10,6 +10,8 @@ import HomePage from "../HomePage/HomePage";
 import Login from "../LogIn/LogIn";
 import useToken from "../../App/useToken";
 import { ProvidersPage } from "../ProvidersPage/ProvidersPage";
+import ProviderDetailsPage from "../ProviderDetailsPage/ProviderDetailsPage";
+import RegistrationPage from "../RegistrationPage/RegistrationPage";
 // import ProductDetail from "../Product/ProductDetail";
 // import NutritionCalculaotr from "./NutritionCalculator/NutritionCalculaotr";
 
@@ -29,6 +31,12 @@ export default function IndexPage() {
         render={(props) => <Dashboard {...props} token={token} />}
       />
       <Route path="/Providers" exact component={ProvidersPage} />
+      <Route
+        path="/ProviderDetailsPage"
+        exact
+        render={(props) => <ProviderDetailsPage {...props} />}
+      />
+      <Route path="/RegisterProvider" exact component={RegistrationPage} />
 
       {/*   <Route path="/Contact" exact component={ContactPage} />
       <Route path="/About" exact component={AboutPage} />
