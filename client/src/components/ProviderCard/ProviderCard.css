@@ -8,3 +8,19 @@
 .provider-image {
   height: 200px;
 }
+
+.fa-heart {
+  float: right;
+  margin-left: 14px;
+  position: relative;
+  top: 2px;
+  color: #a6a6a6;
+  cursor: pointer;
+  -webkit-transition: color 0.3s ease;
+  -o-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+.fa-heart:hover {
+  color: #03658c;
+}

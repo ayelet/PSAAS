@@ -8,7 +8,7 @@ router
 
   // get a list of all providers
   .get(
-    "api/providers",
+    "/",
     //   /*auth, */ x(req, res) => {
     // auth,
     (req, res) => {
@@ -16,14 +16,14 @@ router
       providersControllers.getProviders(res);
     }
   )
-  .get("api/providers/:id", (req, res) => {
+  .get("/:id", (req, res) => {
     console.log("Get provider by id", req.params.id);
     providersControllers.getProvider(req, res);
   })
   // .get("/me", auth, (req, res) => {
   //   providersControllers.getProviderProfile(req, res);
   // })
-  .post("api/providers/", (req, res) => {
+  .post("/", (req, res) => {
     console.log("Add provider", req.body);
     providersControllers.addProvider(req, res);
   })
@@ -39,7 +39,7 @@ router
   //   console.log("logout all sessions");
   //   providersControllers.logoutAll(req, res);
   // })
-  .put("api/providers/:id", (req, res) => {
+  .put("/:id", (req, res) => {
     console.log("Update existing provider", req.params.id);
     providersControllers.updateProvider(req, res);
   })

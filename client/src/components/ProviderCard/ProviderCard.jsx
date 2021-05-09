@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { FaHeart } from "react-icons/fa";
 import providers1 from "./provider.json";
 
 // try {
@@ -21,22 +22,26 @@ import providers1 from "./provider.json";
 //   }, []);
 
 const ProviderCard = () => {
-  const [providers, setProviders] = useState(providers1);
-  const url = "api/providers";
-  //   const url = "/providers";
+  const [providers, setProviders] = useState([]);
+  const url = "/api/providers";
 
-  // useEffect(() => {
-  //   // effect
-  //   axios.get(url).then(function (response) {
-  //     console.log("fetching from api: ", response);
-  //     setProviders(response.data);
-  //     //   console.log(providers);
-  //   });
-  //   return () => {
-  //     // cleanup
-  //   };
-  //   //eslint disable
-  // }, []);
+  useEffect(() => {
+    // effect
+    try {
+      console.log("api request ", url);
+      axios.get(url).then(function (response) {
+        console.log("fetching from api: ", url, response);
+        setProviders(response.data);
+        console.log(providers);
+      });
+    } catch (err) {
+      console.log("Error in fetching data from server ", err);
+    }
+    return () => {
+      // cleanup
+    };
+    //eslint disable
+  }, []);
 
   const renderListItem = (provider) => {
     console.log("card of provider: ", provider);
@@ -50,10 +55,11 @@ const ProviderCard = () => {
         <Card.Body>
           <Card.Title>
             {provider.details.first_name + " " + provider.details.last_name}
+            <FaHeart className="fa-heart" />
           </Card.Title>
-          <Card.Subtitle>
+          {/*  <Card.Subtitle>
             {provider.serviceTypes.map((service) => service.serviceType + " ")}
-          </Card.Subtitle>
+          </Card.Subtitle> */}
           <Card.Text>{provider.address.city}</Card.Text>
           <Link to="/ProviderDetailsPage ">
             <Button variant="info" className="text-center">
@@ -67,7 +73,9 @@ const ProviderCard = () => {
 
   return (
     <Container>
-      <Row>{providers.map((provider) => renderListItem(provider))}</Row>
+      <Row className="text-center">
+        {providers.map((provider) => renderListItem(provider))}
+      </Row>
     </Container>
   );
 };
