@@ -34,7 +34,11 @@ export default function IndexPage() {
       />
       <Route path="/Providers" exact component={ProvidersPage} />
       <Route path="/Provider/:id" exact component={ProviderDetailsPage} />
-      <Route path="/RegisterProvider" exact component={RegistrationPage} />
+      <Route
+        path="/RegisterProvider"
+        exact
+        render={(props) => <RegistrationPage {...props} setToken={setToken} />}
+      />
       {/*   <Route path="/Contact" exact component={ContactPage} />
         <Route path="/About" exact component={AboutPage} />
         <Route path="/Products/" exact component={ProductsPage} />

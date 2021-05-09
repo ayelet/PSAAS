@@ -6,7 +6,7 @@ import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { FaHeart } from "react-icons/fa";
-import providers1 from "./provider.json";
+// import providers1 from "./provider.json";
 
 const ProviderCard = () => {
   const [providers, setProviders] = useState([]);

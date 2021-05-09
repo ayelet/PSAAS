@@ -11,7 +11,7 @@ Login.propTypes = {
 async function loginUser(credentials) {
   try {
     console.log("Login user", credentials);
-    const url = "/login";
+    const url = "api/user/login";
     const { data } = await api.post(url, {
       body: JSON.stringify(credentials),
     });
