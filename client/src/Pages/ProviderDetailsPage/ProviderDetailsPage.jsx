@@ -1,9 +1,23 @@
 import "./ProviderDetailsPage.css";
-
+import { createBrowserHistory } from "history";
 import React from "react";
 
-const ProviderDetailsPage = () => {
-  return <div>Details about this provider</div>;
-};
+import { Container } from "react-bootstrap";
 
-export default ProviderDetailsPage;
+const browserHistory = createBrowserHistory();
+export const ProviderDetailsPage = (props) => {
+  const handleClick = () => {
+    browserHistory.push("/Providers");
+  };
+  console.log("details about a certain provider");
+  return (
+    <Container className="details">
+      <button onClick={handleClick} className="btn btn-info">
+        Back
+      </button>
+      <div className="provider-details-content">
+        Details about this provider
+      </div>
+    </Container>
+  );
+};

@@ -8,19 +8,6 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { FaHeart } from "react-icons/fa";
 import providers1 from "./provider.json";
 
-// try {
-//   const baseUrl = "http://localhost:5001/bank/users/";
-//       axios.get(baseUrl).then(function (response) {
-//         console.log(response);
-//         setAccounts(response.data);
-//         console.log(accounts);
-//       });
-//     } catch (err) {
-//       console.log(err);
-//     }
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, []);
-
 const ProviderCard = () => {
   const [providers, setProviders] = useState([]);
   const url = "/api/providers";
@@ -61,7 +48,7 @@ const ProviderCard = () => {
             {provider.serviceTypes.map((service) => service.serviceType + " ")}
           </Card.Subtitle> */}
           <Card.Text>{provider.address.city}</Card.Text>
-          <Link to="/ProviderDetailsPage ">
+          <Link to="/ProviderDetailsPage " id={provider._id}>
             <Button variant="info" className="text-center">
               Details
             </Button>

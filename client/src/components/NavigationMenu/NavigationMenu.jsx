@@ -74,6 +74,7 @@ function NavigationMenu(props) {
               <FaUserCircle className="login-icon ml-2" />
             </Link>
           </li>
+
           {/*  <li className="nav-item">
             <Link to="/Cart" className="nav-link text-white">
               <FaShoppingCart className="cart-icon" />

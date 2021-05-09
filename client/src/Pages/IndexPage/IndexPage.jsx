@@ -10,7 +10,7 @@ import HomePage from "../HomePage/HomePage";
 import Login from "../LogIn/LogIn";
 import useToken from "../../App/useToken";
 import { ProvidersPage } from "../ProvidersPage/ProvidersPage";
-import ProviderDetailsPage from "../ProviderDetailsPage/ProviderDetailsPage";
+import {ProviderDetailsPage} from "../ProviderDetailsPage/ProviderDetailsPage";
 import RegistrationPage from "../RegistrationPage/RegistrationPage";
 // import ProductDetail from "../Product/ProductDetail";
 // import NutritionCalculaotr from "./NutritionCalculator/NutritionCalculaotr";
