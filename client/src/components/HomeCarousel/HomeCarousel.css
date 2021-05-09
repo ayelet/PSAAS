@@ -1,0 +1,21 @@
+.carousel {
+  width: 900px;
+  height: 500px;
+  margin: auto;
+}
+
+@media (max-width: 900px) {
+  .carousel {
+    width: auto;
+    height: auto;
+  }
+}
+.carousel-indicators li {
+  background-color: darkgray;
+}
+
+.carousel-item {
+  -webkit-transition: -webkit-transform 2.6s ease-in-out !important;
+  -o-transition: -o-transform 2.6s ease-in-out !important;
+  transition: transform 2.6s ease-in-out !important;
+}

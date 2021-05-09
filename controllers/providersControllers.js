@@ -3,6 +3,8 @@ const { request } = require("express");
 const providerModel = require("../model/providers.model");
 const userModel = require("../model/users.model");
 const userController = require("./users.controllers");
+var multer = require("multer");
+var upload = multer();
 // Helper functions
 const validate = (id) => {
   if (!id || id < 0) return false;
@@ -42,16 +44,18 @@ const getUserProfile = async (req, res) => {
 
 // 3. add a new user
 const addProvider = async (req, res) => {
-  console.log(req.body.user);
+  const { provider } = req.body;
+  console.log(req.body.user, provider);
   // const { providerReq } = req.body;
   // console.log(providerReq.gender);
   const date = Date.now();
   try {
+    console.log("header: ", req.header);
     if (req.body.dateAdded) date = req.body.dateAdded;
-    console.log("date Added: ", date);
-    console.log("images: ", req.body.images[0].imageUrl);
+    console.log("date Added: ", date, req.body);
+    // console.log("adress: ", req.body.address);
+    // console.log("details: ", req.body.details);
     const provider = new providerModel({
-      // first_name: req.body.first_name,
       id: req.body.id,
       description: req.body.description,
       details: req.body.details,
@@ -63,7 +67,8 @@ const addProvider = async (req, res) => {
     const newProvider = await provider.save();
 
     // const token = user.generateAuthToken();
-    return res.status(201).json({ newProvider /*, token*/ });
+    // return res.status(201).json({ newProvider /*, token*/ });
+    return res.status(201).json({ success: true /*, token*/ });
   } catch (err) {
     console.log("error in adding user: ", err);
     return res.status(400).json({ Error: err });
