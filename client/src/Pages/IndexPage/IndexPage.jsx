@@ -10,10 +10,12 @@ import HomePage from "../HomePage/HomePage";
 import Login from "../LogIn/LogIn";
 import useToken from "../../App/useToken";
 import { ProvidersPage } from "../ProvidersPage/ProvidersPage";
-import {ProviderDetailsPage} from "../ProviderDetailsPage/ProviderDetailsPage";
+import { ProviderDetailsPage } from "../ProviderDetailsPage/ProviderDetailsPage";
 import RegistrationPage from "../RegistrationPage/RegistrationPage";
+// import { createBrowserHistory } from "history";
 // import ProductDetail from "../Product/ProductDetail";
 // import NutritionCalculaotr from "./NutritionCalculator/NutritionCalculaotr";
+// const history = createBrowserHistory();
 
 export default function IndexPage() {
   const { token, setToken } = useToken();
@@ -31,18 +33,13 @@ export default function IndexPage() {
         render={(props) => <Dashboard {...props} token={token} />}
       />
       <Route path="/Providers" exact component={ProvidersPage} />
-      <Route
-        path="/ProviderDetailsPage"
-        exact
-        render={(props) => <ProviderDetailsPage {...props} />}
-      />
+      <Route path="/Provider/:id" exact component={ProviderDetailsPage} />
       <Route path="/RegisterProvider" exact component={RegistrationPage} />
-
       {/*   <Route path="/Contact" exact component={ContactPage} />
-      <Route path="/About" exact component={AboutPage} />
-      <Route path="/Products/" exact component={ProductsPage} />
-      <Route path="/Products/id=:id" exact component={ProductDetail} />
-      <Route path="/Cart" component={CartPage} />
+        <Route path="/About" exact component={AboutPage} />
+        <Route path="/Products/" exact component={ProductsPage} />
+        <Route path="/Products/id=:id" exact component={ProductDetail} />
+        <Route path="/Cart" component={CartPage} />
       <Route path="/Calculator" component={NutritionCalculaotr} /> */}
     </div>
   );

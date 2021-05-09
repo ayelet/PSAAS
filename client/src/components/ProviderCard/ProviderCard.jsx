@@ -48,7 +48,7 @@ const ProviderCard = () => {
             {provider.serviceTypes.map((service) => service.serviceType + " ")}
           </Card.Subtitle> */}
           <Card.Text>{provider.address.city}</Card.Text>
-          <Link to="/ProviderDetailsPage " id={provider._id}>
+          <Link to={"/Provider/" + provider._id} id={provider._id}>
             <Button variant="info" className="text-center">
               Details
             </Button>
