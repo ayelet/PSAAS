@@ -2,9 +2,9 @@ import "./ProviderCard.css";
 import axios from "axios";
 
 import React, { useState, useEffect } from "react";
-import { Card, Button, Container, Row, Col } from "react-bootstrap";
+import { Card, Button, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+// import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { FaHeart } from "react-icons/fa";
 // import providers1 from "./provider.json";
 

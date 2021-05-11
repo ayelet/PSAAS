@@ -1,4 +1,3 @@
-// const roomModel = require("../db/model");
 const { request } = require("express");
 const providerModel = require("../model/providers.model");
 const userModel = require("../model/users.model");
@@ -22,7 +21,7 @@ const getProviders = async (res) => {
 };
 
 // 2. Get a specific user
-const getUser = async (req, res) => {
+const getProvider = async (req, res) => {
   try {
     const user_id = parseInt(req.params.id);
     if (!validate(user_id))
@@ -70,13 +69,13 @@ const addProvider = async (req, res) => {
     // return res.status(201).json({ newProvider /*, token*/ });
     return res.status(201).json({ success: true /*, token*/ });
   } catch (err) {
-    console.log("error in adding user: ", err);
+    console.log("error in adding provider: ", err);
     return res.status(400).json({ Error: err });
   }
 };
 
 // 4. update an existing user
-const updateUser = async (req, res) => {
+const updateProvider = async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdate = ["first_name", "last_name"];
   const isValidOperation = updates.every((update) =>
@@ -102,46 +101,46 @@ const updateUser = async (req, res) => {
   }
 };
 
-// Login User
-const loginUser = async (req, res) => {
-  try {
-    const user = await userModel.findByCredentials(
-      req.body.email,
-      req.body.password
-    );
-    const token = await user.generateAuthToken();
-    res.send({ user, token });
-  } catch (e) {
-    res.status(400).send();
-  }
-};
+// // Login User
+// const loginUser = async (req, res) => {
+//   try {
+//     const user = await userModel.findByCredentials(
+//       req.body.email,
+//       req.body.password
+//     );
+//     const token = await user.generateAuthToken();
+//     res.send({ user, token });
+//   } catch (e) {
+//     res.status(400).send();
+//   }
+// };
 
-// Log out from one session
-const logoutUser = async (req, res) => {
-  try {
-    console.log("log out user ", req.user);
-    req.user.tokens = req.user.tokens.filter((token) => {
-      return token.token !== req.token;
-    });
-    await req.user.save();
-    res.send();
-  } catch (err) {
-    res.status(500).send();
-  }
-};
-// Logout from all session (delete all tokens)
-const logoutAll = async (req, res) => {
-  try {
-    console.log("log out all session", req.user);
-    req.user.tokens = [];
-    await req.user.save();
-    res.send();
-  } catch (e) {
-    res.status(500).send();
-  }
-};
+// // Log out from one session
+// const logoutUser = async (req, res) => {
+//   try {
+//     console.log("log out user ", req.user);
+//     req.user.tokens = req.user.tokens.filter((token) => {
+//       return token.token !== req.token;
+//     });
+//     await req.user.save();
+//     res.send();
+//   } catch (err) {
+//     res.status(500).send();
+//   }
+// };
+// // Logout from all session (delete all tokens)
+// const logoutAll = async (req, res) => {
+//   try {
+//     console.log("log out all session", req.user);
+//     req.user.tokens = [];
+//     await req.user.save();
+//     res.send();
+//   } catch (e) {
+//     res.status(500).send();
+//   }
+// };
 // Delete a specific user by its id
-const deleteUser = async (req, res) => {
+const deleteProvider = async (req, res) => {
   try {
     const { id } = req.params;
     if (!validateId(id))
@@ -154,9 +153,6 @@ const deleteUser = async (req, res) => {
     return res.status(500).send(err);
   }
 };
-
-// 2. Delete all users
-const deleteAllUsers = async (req, res) => {};
 
 // const user = new userModel({
 //   name: "room1",
@@ -173,13 +169,13 @@ const deleteAllUsers = async (req, res) => {};
 
 module.exports = {
   getProviders,
-  getUser,
+  getProvider,
   addProvider,
-  updateUser,
-  deleteUser,
-  deleteAllUsers,
-  getUserProfile,
-  loginUser,
-  logoutUser,
-  logoutAll,
+  updateProvider,
+  deleteProvider,
+  // deleteAllProviders,
+  // getUserProfile,
+  // loginUser,
+  // logoutUser,
+  // logoutAll,
 };

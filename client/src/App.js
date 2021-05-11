@@ -1,4 +1,5 @@
 import "./App.css";
+import React from "react";
 // import Signup from "./components/Pages/SignUp/SignUp";
 // import welcome from "./assets/img/welcome.jpg";
 // import NavigationMenu from "./components/NavigationMenu/NavigationMenu";

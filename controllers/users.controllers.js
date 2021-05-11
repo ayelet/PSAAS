@@ -107,11 +107,15 @@ const updateUser = async (req, res) => {
 // Login User
 const loginUser = async (req, res) => {
   try {
+    console.log("User login");
     const user = await userModel.findByCredentials(
       req.body.email,
       req.body.password
     );
     const token = await user.generateAuthToken();
+    res.set({
+      "Access-Control-Allow-Origin": "*",
+    });
     res.send({ user, token });
   } catch (e) {
     res.status(400).send();

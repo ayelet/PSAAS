@@ -2,8 +2,7 @@ import React from "react";
 
 import { Route } from "react-router-dom";
 import Dashboard from "../Dashboard/Dashboard";
-// import ProductsPage from "./ProductsPage";
-// import CartPage from "../Cart/CartPage";
+
 // import AboutPage from "../About/AboutPage";
 // import ContactPage from "../Contact/Contact";
 import HomePage from "../HomePage/HomePage";
@@ -12,10 +11,7 @@ import useToken from "../../App/useToken";
 import { ProvidersPage } from "../ProvidersPage/ProvidersPage";
 import { ProviderDetailsPage } from "../ProviderDetailsPage/ProviderDetailsPage";
 import RegistrationPage from "../RegistrationPage/RegistrationPage";
-// import { createBrowserHistory } from "history";
-// import ProductDetail from "../Product/ProductDetail";
-// import NutritionCalculaotr from "./NutritionCalculator/NutritionCalculaotr";
-// const history = createBrowserHistory();
+import Signup from "../SignUp/SignUp";
 
 export default function IndexPage() {
   const { token, setToken } = useToken();
@@ -26,6 +22,11 @@ export default function IndexPage() {
         path="/Login"
         exact
         render={(props) => <Login {...props} setToken={setToken} />}
+      />
+      <Route
+        path="/SignUp"
+        exact
+        render={(props) => <Signup {...props} setToken={setToken} />}
       />
       <Route
         path="/Dashboard"
@@ -41,10 +42,9 @@ export default function IndexPage() {
       />
       {/*   <Route path="/Contact" exact component={ContactPage} />
         <Route path="/About" exact component={AboutPage} />
-        <Route path="/Products/" exact component={ProductsPage} />
-        <Route path="/Products/id=:id" exact component={ProductDetail} />
-        <Route path="/Cart" component={CartPage} />
-      <Route path="/Calculator" component={NutritionCalculaotr} /> */}
+       
+    
+      */}
     </div>
   );
 }

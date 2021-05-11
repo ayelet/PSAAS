@@ -3,7 +3,7 @@ import { Card, Form, Button } from "react-bootstrap";
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 // import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+// import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 // import "C:\bootcampworkspacepetsitter-boardclient\node_modules\bootstrapdistcss\bootstrap.min.css";
 
 export default function Signup() {
