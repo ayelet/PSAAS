@@ -1,6 +1,6 @@
 import React from "react";
 import useToken from "../../App/useToken";
-import Login from "../LogIn/LogIn";
+import Login from "../LogIn/LogIn1";
 
 function Dashboard() {
   const { token, setToken } = useToken();

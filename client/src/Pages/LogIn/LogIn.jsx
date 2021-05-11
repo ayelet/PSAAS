@@ -1,86 +1,108 @@
 import "./LogIn.css";
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-// import api from "../../api/api";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
-};
+import React, { useRef, useState } from "react";
+import { Form, Button, Card, Alert, Container } from "react-bootstrap";
+// import { useAuth } from "../contexts/AuthContext";
+import { Link, useHistory } from "react-router-dom";
 
-async function loginUser(credentials) {
-  try {
-    console.log("Login user", credentials);
-    const url = "api/login";
-    const { data } = await axios.post(url, {
-      body: JSON.stringify(credentials),
-    });
-    // console.log("recieved response ", data);
-    // return data;
-    return { token: "test123" };
-    // setData(data);
-  } catch (err) {
-    console.log("Login Error:", err);
-  }
-
-  // return fetch("http://localhost:8000/login", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(credentials),
-  // }).then((data) => data.json());
-}
-
-export default function Login({ setToken }) {
+export default function Login() {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
-  console.log("setToken ", setToken);
-  const handleSubmit = async (e) => {
+  //   console.log("setToken ", setToken);
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  //   const { login } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    const token = await loginUser({
-      username,
-      password,
-    });
-    console.log("setToken", setToken);
-    setToken(token);
-  };
+
+    try {
+      setError("");
+      setLoading(true);
+      //   await login(emailRef.current.value, passwordRef.current.value);
+      history.push("/");
+    } catch {
+      setError("Failed to log in");
+    }
+
+    setLoading(false);
+  }
 
   return (
-    <div className="form-wrapper">
-      <div className="login-wrapper">
-        <h1>Sign in to your account</h1>
-        <form onSubmit={handleSubmit}>
-          <div>
+    <>
+      <Container
+        className="d-flex align-items-center justify-content-center"
+        style={{ minHeight: "100vh" }}
+      >
+        <div className="w-100" style={{ maxWidth: "400px" }}>
+          <Card form-wrapper style={{ background: "#f6d360" }}>
+            <Card.Body>
+              <h2 className="text-center mb-4">Log In to Your Account</h2>
+              {error && <Alert variant="danger">{error}</Alert>}
+              <Form onSubmit={handleSubmit}>
+                <Form.Group id="email">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control type="email" ref={emailRef} required />
+                </Form.Group>
+                <Form.Group id="password">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control type="password" ref={passwordRef} required />
+                </Form.Group>
+                <Button
+                  disabled={loading}
+                  variant="info"
+                  className="w-100"
+                  type="submit"
+                >
+                  Log In
+                </Button>
+              </Form>
+              <div className="w-100 text-center mt-3">
+                <Link to="/forgot-password">Forgot Password?</Link>
+              </div>
+            </Card.Body>
+          </Card>
+          <div className="w-100 text-center mt-2">
+            Need an account? <Link to="/signup">Sign Up</Link>
+          </div>
+        </div>
+      </Container>
+      <div className="form-wrapper">
+        <div className="login-wrapper">
+          <h1>Sign in to your account</h1>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>
+                <p>email</p>
+                <input
+                  type="text"
+                  onChange={(e) => setUserName(e.target.value)}
+                />
+              </label>
+            </div>
             <label>
-              <p>email</p>
+              <p>Password</p>
               <input
-                type="text"
-                onChange={(e) => setUserName(e.target.value)}
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </label>
-          </div>
-          <label>
-            <p>Password</p>
-            <input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <div>
-            <button type="submit">Continue</button>
-          </div>
-        </form>
-      </div>
-      <div className="login-wrapper">
-        <div>
-          <span>Don’t have an account?</span>
+            <div>
+              <button type="submit">Continue</button>
+            </div>
+          </form>
         </div>
-        <Link to="/SignUp">
-          <Button variant="info">Sign Up</Button>
-        </Link>
+        <div className="login-wrapper">
+          <div>
+            <span>Don’t have an account?</span>
+          </div>
+          <Link to="/SignUp">
+            <Button variant="info">Sign Up</Button>
+          </Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
