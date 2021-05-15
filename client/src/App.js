@@ -6,14 +6,18 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import IndexPage from "./Pages/IndexPage/IndexPage";
 import Layout from "./components/Layout/Layout";
+import { Provider } from "react-redux";
+import { store } from "./helpers/store";
 // import { useState } from "react";
 
 function App() {
   return (
     <BrowserRouter>
-      <Layout>
-        <IndexPage />{" "}
-      </Layout>
+      <Provider store={store}>
+        <Layout>
+          <IndexPage />{" "}
+        </Layout>
+      </Provider>
     </BrowserRouter>
   );
 }

@@ -2,13 +2,13 @@ import React from "react";
 import { Jumbotron, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import HomeCarousel from "../../components/HomeCarousel/HomeCarousel";
+// import HomeCarousel from "../../components/HomeCarousel/HomeCarousel";
 
 const HomePage = () => {
   return (
     <Jumbotron className="hero" fluid>
       <div>
-        <HomeCarousel />
+        {/* <HomeCarousel /> */}
         <Link to="/Providers">
           <Button variant="info">I'm a pet owner</Button>{" "}
         </Link>
