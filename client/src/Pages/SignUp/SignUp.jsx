@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Card, Button, Form } from "react-bootstrap";
 
-import { userActions } from "../_actions";
+import { userActions } from "../../actions";
 
 export default function Signup(props) {
   // constructor(props) {
@@ -22,6 +22,7 @@ export default function Signup(props) {
   const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   // const handleChange = (event) => {
@@ -143,11 +144,19 @@ export default function Signup(props) {
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" required></Form.Control>
+              <Form.Control
+                type="email"
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              ></Form.Control>
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" required></Form.Control>
+              <Form.Control
+                type="password"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              ></Form.Control>
             </Form.Group>
             <Form.Group id="passwordConfirm ">
               <Form.Label>Confirm password</Form.Label>

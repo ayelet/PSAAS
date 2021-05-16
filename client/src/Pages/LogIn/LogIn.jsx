@@ -4,9 +4,9 @@ import { Form, Button, Card, Alert, Container } from "react-bootstrap";
 // import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
-export default function Login() {
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
+export default function Login(props) {
+  // const [username, setUserName] = useState();
+  // const [password, setPassword] = useState();
   //   console.log("setToken ", setToken);
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -15,13 +15,16 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
+  // reset login status
+  this.props.logout();
+
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
       setError("");
       setLoading(true);
-      //   await login(emailRef.current.value, passwordRef.current.value);
+      await props.login(emailRef.current.value, passwordRef.current.value);
       history.push("/");
     } catch {
       setError("Failed to log in");
@@ -76,18 +79,12 @@ export default function Login() {
             <div>
               <label>
                 <p>email</p>
-                <input
-                  type="text"
-                  onChange={(e) => setUserName(e.target.value)}
-                />
+                <input type="text" />
               </label>
             </div>
             <label>
               <p>Password</p>
-              <input
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <input type="password" />
             </label>
             <div>
               <button type="submit">Continue</button>
