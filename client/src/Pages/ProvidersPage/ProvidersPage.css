@@ -2,3 +2,10 @@
   display: grid;
   grid-template-columns: 1fr 5fr;
 }
+
+.filter-wrapper {
+  border: solid 2px #f6d360;
+  border-radius: 8px;
+  margin: 4px;
+  padding: 4px;
+}

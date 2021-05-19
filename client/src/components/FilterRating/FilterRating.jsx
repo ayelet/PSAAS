@@ -10,11 +10,13 @@ const ratingDesc = {
   1: "All reviews",
 };
 
-const FilterRating = () => {
+const FilterRating = (props) => {
   const [option, setOption] = useState("3 & Up");
 
   const onValueChanged = (event) => {
     setOption(event.target.value);
+    console.log("Child value changed to ", option);
+    props.parentCallback(option);
   };
 
   return (

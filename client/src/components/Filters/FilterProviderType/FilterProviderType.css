@@ -1,0 +1,14 @@
+.select-type {
+  padding-left: 40px;
+  background: white;
+}
+
+a.input-img {
+  position: absolute;
+  top: 27px;
+  padding: 10px 14px;
+}
+
+.filter-wrapper {
+  background: white;
+}
