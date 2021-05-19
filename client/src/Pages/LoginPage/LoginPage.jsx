@@ -1,10 +1,13 @@
-import "./LogIn.css";
+import "./LoginPage.css";
 import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
 // import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default function Login(props) {
+import { userActions } from "../../actions";
+
+export default function LoginPage(props) {
   // const [username, setUserName] = useState();
   // const [password, setPassword] = useState();
   //   console.log("setToken ", setToken);
@@ -16,7 +19,7 @@ export default function Login(props) {
   const history = useHistory();
 
   // reset login status
-  this.props.logout();
+  // props.logout();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -103,3 +106,16 @@ export default function Login(props) {
     </>
   );
 }
+
+function mapState(state) {
+  const { loggingIn } = state.authentication;
+  return { loggingIn };
+}
+
+const actionCreators = {
+  login: userActions.login,
+  logout: userActions.logout,
+};
+
+const connectedLoginPage = connect(mapState, actionCreators)(LoginPage);
+export { connectedLoginPage as LoginPage };

@@ -1,12 +1,12 @@
 import React from "react";
 import useToken from "../../App/useToken";
-import Login from "../LogIn/LogIn1";
+import LoginPage from "../LoginPage/LoginPage";
 
 function Dashboard() {
   const { token, setToken } = useToken();
 
   if (!token) {
-    return <Login setToken={setToken} />;
+    return <LoginPage setToken={setToken} />;
   }
   return <div>User's Dashboard</div>;
 }

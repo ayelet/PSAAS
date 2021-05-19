@@ -95,12 +95,12 @@ const updateUser = async (req, res) => {
       userModel[update] = req.body[update];
     });
     await user.save();
-    if (!user) return res.status(404).send({ error: "could update user" });
+    if (!user) return res.status(404).send({ error: "couldn't update user" });
 
     return res.send(user);
   } catch (err) {
     console.log(err);
-    return res.status(500).send({ error: err });
+    return res.status(500).send({ error: err.message });
   }
 };
 

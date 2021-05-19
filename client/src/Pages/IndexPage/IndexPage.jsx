@@ -6,7 +6,7 @@ import Dashboard from "../Dashboard/Dashboard";
 // import AboutPage from "../About/AboutPage";
 // import ContactPage from "../Contact/Contact";
 import HomePage from "../HomePage/HomePage";
-import Login from "../LogIn/LogIn";
+import LoginPage from "../LoginPage/LoginPage";
 import useToken from "../../App/useToken";
 import { ProvidersPage } from "../ProvidersPage/ProvidersPage";
 import { ProviderDetailsPage } from "../ProviderDetailsPage/ProviderDetailsPage";
@@ -21,7 +21,7 @@ export default function IndexPage() {
       <Route
         path="/Login"
         exact
-        render={(props) => <Login {...props} setToken={setToken} />}
+        render={(props) => <LoginPage {...props} setToken={setToken} />}
       />
       <Route
         path="/SignUp"

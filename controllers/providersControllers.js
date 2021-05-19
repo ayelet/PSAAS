@@ -3,6 +3,7 @@ const providerModel = require("../model/providers.model");
 const userModel = require("../model/users.model");
 const userController = require("./users.controllers");
 var multer = require("multer");
+const { use } = require("../routes/providers.routes");
 var upload = multer();
 // Helper functions
 const validate = (id) => {
@@ -92,7 +93,7 @@ const updateProvider = async (req, res) => {
       userModel[update] = req.body[update];
     });
     await user.save();
-    if (!user) return res.status(404).send({ error: "could update user" });
+    if (!user) return res.status(404).send({ error: "could not update user" });
 
     return res.send(user);
   } catch (err) {
@@ -101,6 +102,25 @@ const updateProvider = async (req, res) => {
   }
 };
 
+// 5. upload image to a user profile
+const uploadImage = async (req, res) => {
+  try {
+    // const email1 = "bdastc@xing.com";
+    // let provider = await providerModel.find({ "details.email": email1 }).exec();
+    let provider = await providerModel.findById("60959c86e74109430467e192");
+    console.log(req.file.originalfilename);
+    providerModel.imageFile = req.file.buffer;
+    console.log("provider:", typeof provider.constructor, provider);
+    await provider.save(function (err, doc) {
+      if (err) return console.error(err);
+      console.log("Document updated succussfully!");
+    });
+    return res.status(202).send({ success: "image uploaded" });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ error: err.message });
+  }
+};
 // // Login User
 // const loginUser = async (req, res) => {
 //   try {
@@ -173,6 +193,7 @@ module.exports = {
   addProvider,
   updateProvider,
   deleteProvider,
+  uploadImage,
   // deleteAllProviders,
   // getUserProfile,
   // loginUser,

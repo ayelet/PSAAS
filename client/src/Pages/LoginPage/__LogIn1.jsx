@@ -1,4 +1,4 @@
-import "./LogIn.css";
+import "./LoginPage.css";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 // import api from "../../api/api";

@@ -5,11 +5,10 @@ require("./db/mongoose");
 // const loginRoute = require("./routes/login.routes");
 const providersRoute = require("./routes/providers.routes");
 const usersRoute = require("./routes/users.routes");
+const uploadRoute = require("./routes/upload.routes");
 const port = process.env.PORT || 5000;
 const bodyParser = require("body-parser");
 const logger = require("morgan");
-var multer = require("multer");
-var upload = multer();
 
 const app = express();
 app.use(express.json());
@@ -21,10 +20,12 @@ const urlencodedParse = app.use(bodyParser.urlencoded({ extended: false }));
 const jsonParse = app.use(bodyParser.json());
 
 // for parsing multipart/form-data
-app.use(upload.array());
+// app.use(upload.array());
 
 app.use("/api/users", usersRoute);
+
 app.use("/api/providers", providersRoute);
+app.use("/api/upload", uploadRoute);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

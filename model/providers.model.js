@@ -50,6 +50,10 @@ const providerSchema = mongoose.Schema({
       },
     },
   ],
+
+  imagefile: {
+    type: Buffer,
+  },
   ratings: [
     {
       score: {

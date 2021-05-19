@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { Card, Button, Form } from "react-bootstrap";
+import { Card, Button, Form, Container } from "react-bootstrap";
 
 import { userActions } from "../../actions";
 
 export default function Signup(props) {
+  console.log("props:", props);
   // constructor(props) {
   //   super(props);
 
@@ -18,9 +19,9 @@ export default function Signup(props) {
   //   },
   //   submitted: false,
   // };
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [userName, setUserName] = useState("");
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -40,11 +41,11 @@ export default function Signup(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // setState({ submitted: true });
     setSubmitted(true);
     // const { user } = state;
-    if (firstName && lastName && userName && password) {
-      props.register(firstName, lastName, userName, password);
+    console.log("registering: ", email, password);
+    if (email && password) {
+      props.register(email, password);
     }
   };
 
@@ -137,41 +138,46 @@ export default function Signup(props) {
     //       </div>
     //     </form>
     //   </div>
-    <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Sign Up</h2>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                required
-                onChange={(e) => setEmail(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group id="passwordConfirm ">
-              <Form.Label>Confirm password</Form.Label>
-              <Form.Control type="passwordConfirm " required></Form.Control>
-            </Form.Group>
-            <Button type="submit" className="btn w-100">
-              Sign Up
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Already have an account? Log In
+    <Container
+      className="d-flex align-items-center justify-content-center"
+      style={{ minHeight: "100vh" }}
+    >
+      <div className="w-100" style={{ maxWidth: "400px" }}>
+        <Card form-wrapper style={{ background: "#f6d360" }}>
+          <Card.Body>
+            <h2 className="text-center mb-4">Sign Up</h2>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group id="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group id="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group id="passwordConfirm ">
+                <Form.Label>Confirm password</Form.Label>
+                <Form.Control type="passwordConfirm " required></Form.Control>
+              </Form.Group>
+              <Button type="submit" className="btn w-100">
+                Sign Up
+              </Button>
+            </Form>
+          </Card.Body>
+        </Card>
+        <div className="w-100 text-center mt-2">
+          Already have an account? Log In
+        </div>
       </div>
-    </>
+    </Container>
   );
 }
 

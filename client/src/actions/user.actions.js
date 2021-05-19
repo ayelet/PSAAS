@@ -43,7 +43,9 @@ function logout() {
   return { type: userConstants.LOGOUT };
 }
 
-function register(user) {
+function register(email, password) {
+  console.log("user action: register");
+  const user = { email, password };
   return (dispatch) => {
     dispatch(request(user));
 

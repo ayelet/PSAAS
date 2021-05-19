@@ -67,6 +67,7 @@ const NewProviderForm = () => {
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
   const [serviceTypes, setServiceTypes] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleChange = (e) => {
     if (e.target.id === "firstName") {
@@ -115,6 +116,19 @@ const NewProviderForm = () => {
       ratings: [],
       description: description,
     });
+  };
+
+  const onFileSelected = (e) => {
+    console.log(e.target.files);
+    //TODO: add validation of images only
+    setSelectedFile(e.target.files);
+  };
+
+  const onFileUpload = async (e) => {
+    const fd = new FormData();
+    fd.append("image", selectedFile, selectedFile.name);
+    const res = await axios.post("/providers/imageUpload/:id", fd);
+    console.log(res);
   };
 
   return (
@@ -233,7 +247,12 @@ const NewProviderForm = () => {
       </Form.Group>
 
       <Form.Group controlId="image1">
-        <Form.File id="my image" label="Add your image" />
+        <Form.File
+          id="my image"
+          label="Add your image"
+          onChange={onFileSelected}
+        />
+        <Button onClick={onFileUpload}>Upload</Button>
       </Form.Group>
 
       <Button variant="info" type="submit">
