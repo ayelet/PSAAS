@@ -15,6 +15,7 @@ import { addFavorite, removeFavorite } from "../../actions";
 ProviderCard.propTypes = {
   addFavorite: PropTypes.func,
   removeFavorite: PropTypes.func,
+  id: PropTypes.number,
   //    index: PropTypes.number,
   //     details: PropTypes.object.isRequired,
   //     x: PropTypes.number.isRequired,
@@ -54,19 +55,20 @@ export function ProviderCard(props) {
   //     payload: provider,
   //   });
 
-  const toggleFavorite = (provider) => {
-    // setIsFav(!isFav);
-    favorite();
-  };
+  // const toggleFavorite = (provider) => {
+  //   console.log("toggle fav");
+  //   // setIsFav(!isFav);
+  //   favorite();
+  // };
 
-  const favorite = (provider) => {
+  const favorite = (id) => {
     // -   this.setState({ favourite: !this.state.favourite });
     // const { favorite, removeFavorite, addFavorite } = props;
-    console.log(favorite);
+    // console.log(favorite);
     if (props.favorite) {
-      removeFavorite(provider);
+      removeFavorite(id);
     } else {
-      addFavorite(provider);
+      addFavorite(id);
     }
   };
 
@@ -82,7 +84,7 @@ export function ProviderCard(props) {
         <Card.Body>
           <Card.Title>
             {provider.details.first_name + " " + provider.details.last_name}
-            <button onClick={toggleFavorite} type="button" className="fav-btn">
+            <button onClick={favorite} type="button" className="fav-btn">
               {props.favorite ? (
                 <FaRegHeart className="fa-heart" />
               ) : (

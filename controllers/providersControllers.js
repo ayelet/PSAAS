@@ -24,14 +24,14 @@ const getProviders = async (res) => {
 // 2. Get a specific user
 const getProvider = async (req, res) => {
   try {
-    const user_id = parseInt(req.params.id);
+    const user_id = req.params.id;
     if (!validate(user_id))
       return res.status(400).send("Bad request, invalid ID");
-    console.log("1. getting user by id ", user_id);
-    const user = await userModel.find({ user_id: user_id });
-    if (!user) return res.status(404).send("user does not exist");
-    console.log("2. getting user  ", user_id, user);
-    return res.status(200).send({ user: user });
+    console.log("1. getting provider by id ", user_id);
+    const provider = await providerModel.findOne({ _id: user_id });
+    if (!provider) return res.status(404).send("provider does not exist");
+    console.log("2. getting provider  ", user_id, provider);
+    return res.status(200).send({ provider: provider });
   } catch (err) {
     console.log(err);
     return res.status(500).send(err);

@@ -2,7 +2,7 @@ import "./ProvidersPage.css";
 
 import React from "react";
 import Filter from "../../components/Filters/Filter/Filter";
-import ProviderCard from "../../components/ProviderCard/ProviderCard";
+import ProviderCard from "../../components/ProviderCard";
 import FilterRating from "../../components/Filters/FilterRating/FilterRating";
 import FilterByDate from "../../components/Filters/FilterByDate/FilterByDate";
 import FilterProviderType from "../../components/Filters/FilterProviderType/FilterProviderType";
@@ -10,8 +10,6 @@ import FilterPrice from "../../components/Filters/FilterPrice/FilterPrice";
 // import { Card } from "react-bootstrap";
 
 export const ProvidersPage = () => {
-
-
   const handleFilterByRating = (data) => {
     console.log("Parent: option chosen: ", data);
   };
@@ -47,7 +45,6 @@ export const ProvidersPage = () => {
         <div className="filter-wrapper">
           <FilterPrice parentCallBack={handleFilterByPrice} />
         </div>
-        
       </aside>
       <main className="providers-list">
         <ProviderCard />

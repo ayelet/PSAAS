@@ -1,19 +1,21 @@
 import { favoritesConstants } from "../constants";
 
-export const addFavorite = (provider) => {
+export const addFavorite = (id) => {
+  console.log("adding to favorite");
   return {
     type: favoritesConstants.FAVORITE_ADDED,
     payload: {
-      provider: provider,
+      id: id,
     },
   };
 };
 
-export const removeFavorite = (provider) => {
+export const removeFavorite = (id) => {
+  console.log("removing from favorites");
   return {
     type: favoritesConstants.FAVORITE_REMOVED,
     payload: {
-      provider: provider,
+      id: id,
     },
   };
 };

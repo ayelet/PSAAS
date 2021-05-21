@@ -17,7 +17,7 @@ router
       usersController.getUsers(req, res);
     }
   )
-  .get("users/:id", (req, res) => {
+  .get("/:id", (req, res) => {
     console.log("Get user by id", req.params.id);
     usersController.getUser(req, res);
   })

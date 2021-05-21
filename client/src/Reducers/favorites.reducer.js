@@ -1,24 +1,17 @@
-import { userConstants } from "../constants";
+import { favoritesConstants } from "../constants";
 
-let user = JSON.parse(localStorage.getItem("favorites"));
+let favs = JSON.parse(localStorage.getItem("favorites"));
 // const initialState = user ? { loggedIn: true, user } : {};
 const initialState = [];
 
 export function favorites(state = initialState, action) {
+  console.log("fav reucer: ", state, favs);
   switch (action.type) {
-    case userConstants.ADD_FAV:
+    case favoritesConstants.ADD_FAV:
       return {
         ...state,
+        id: action.id,
       };
-    case userConstants.LOGIN_SUCCESS:
-      return {
-        loggedIn: true,
-        user: action.user,
-      };
-    case userConstants.LOGIN_FAILURE:
-      return {};
-    case userConstants.LOGOUT:
-      return {};
     default:
       return state;
   }

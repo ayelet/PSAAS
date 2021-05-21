@@ -50,6 +50,12 @@ const providerSchema = mongoose.Schema({
       },
     },
   ],
+  price: {
+    type: Number,
+    validator(value) {
+      if (value < 0) throw new Error("Price should be a positive number");
+    },
+  },
 
   imagefile: {
     type: Buffer,
