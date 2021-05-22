@@ -1,6 +1,6 @@
 import "./ProviderDetailsPage.css";
 import React, { useState, useEffect } from "react";
-import { Container, Breadcrumb, Card } from "react-bootstrap";
+import { Container, Breadcrumb, Card, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { fakeProvider } from "./fakeProvider";
@@ -67,21 +67,34 @@ export const ProviderDetailsPage = (props) => {
         <Breadcrumb.Item href="/providers">Back</Breadcrumb.Item>
         <Breadcrumb.Item active>Details</Breadcrumb.Item>
       </Breadcrumb>
-      <main>
-        <Card>
-          <Card.Header>
-            {fake.serviceType.map((service, i) => {
-              return service + (i < fake.serviceType.length - 2 ? ", " : " & ");
-            })}
-          </Card.Header>
-          <Card.Body>
-            <Card.Title>
-              {fake.details.first_name + " " + fake.details.last_name}
-            </Card.Title>
-            <Card.Text>{fake.description}</Card.Text>
-          </Card.Body>
-        </Card>
-      </main>
+      <Container>
+        <Row>
+          <Col xs="8">
+            {" "}
+            <Card>
+              <Card.Header>
+                {fake.serviceType.map((service, i) => {
+                  return (
+                    service + (i < fake.serviceType.length - 2 ? ", " : " & ")
+                  );
+                })}
+              </Card.Header>
+              <Card.Body>
+                <Card.Title>
+                  {fake.details.first_name + " " + fake.details.last_name}
+                </Card.Title>
+                <Card.Text>{fake.description}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col xs="4">
+          <Card>
+          
+          <img width="100%" src={fake.images[0].imageUrl} alt="profile" />
+          </Card>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
