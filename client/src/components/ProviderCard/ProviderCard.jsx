@@ -11,6 +11,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 // import { store } from "../../helpers/store";
 import { connect } from "react-redux";
 import { addFavorite, removeFavorite } from "../../actions";
+import rollingCat from "../../assets/img/rolling cat.gif";
 
 ProviderCard.propTypes = {
   addFavorite: PropTypes.func,
@@ -28,6 +29,7 @@ export function ProviderCard(props) {
   const [providers, setProviders] = useState([]);
   const [filteredProviders, setFilteredProviders] = useState([]);
   const [displayFiltered, setDisplayFiltered] = useState(false);
+  const [loading, setLoading] = useState(true);
   // const [isFav, setIsFav] = useState(false);
   const url = "/api/providers";
 
@@ -40,6 +42,7 @@ export function ProviderCard(props) {
         setProviders(response.data);
         // console.log(providers);
       });
+      setLoading(false);
     } catch (err) {
       console.log("Error in fetching data from server ", err);
     }
@@ -70,6 +73,16 @@ export function ProviderCard(props) {
     } else {
       addFavorite(id);
     }
+  };
+
+  const renderLoader = () => {
+    return (
+      <Container className="loader" center>
+        <img src={rollingCat} alt="rolling cat" />
+
+        <h3>Loading...</h3>
+      </Container>
+    );
   };
 
   const renderListItem = (provider) => {
@@ -110,7 +123,9 @@ export function ProviderCard(props) {
   return (
     <Container>
       <Row className="text-center">
-        {providers.map((provider) => renderListItem(provider))}
+        {loading
+          ? renderLoader()
+          : providers.map((provider) => renderListItem(provider))}
       </Row>
     </Container>
   );
