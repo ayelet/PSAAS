@@ -1,17 +1,30 @@
 import "./ProviderDetailsPage.css";
 import React, { useState, useEffect } from "react";
-import { Container, Breadcrumb, Card, Row, Col } from "react-bootstrap";
+import { Container, Breadcrumb, Card, Row, Col, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { fakeProvider } from "./fakeProvider";
+import { GiDogBowl, GiDogHouse, GiJumpingDog } from "react-icons/gi";
+import { FaTaxi } from "react-icons/fa";
+import { GoLocation } from "react-icons/go";
+import Loader from "../../components/Loader/Loader";
+
 const Console = (prop) => (
   console[Object.keys(prop)[0]](...Object.values(prop)), null // ➜ React components must return something
 );
 
 export const ProviderDetailsPage = (props) => {
   const [provider, setProvider] = useState();
-  const [fake] = useState(fakeProvider.provider);
+  const [loading, setLoading] = useState(true);
+  // const [fake] = useState(fakeProvider.provider);
   let { id } = useParams();
+  // const servicesMap2Icons = [
+  //   { name: "Pet Sitting", icon: GiDogBowl },
+  //   { name: "Dog Walking", icon: GiJumpingDog },
+  //   { name: "Pet Boarding", icon: GiDogHouse },
+  //   { name: "Pet Taxi", icon: FaTaxi },
+  // ];
+  const Icons = [GiDogBowl, GiJumpingDog, GiDogHouse, FaTaxi];
 
   const getProvider = async () => {
     // console.log("requesting data from id: ", id);
@@ -28,29 +41,13 @@ export const ProviderDetailsPage = (props) => {
           // Authorization: `Bearer ${token}`,
         },
       });
-      setProvider(response.data);
-      console.log(provider);
+      setProvider(response.data.provider);
+      setLoading(false);
+      console.log(response.data.provider.address);
+      // console.log(provider.provider.details, provider.provider.address);
     } catch (err) {
       console.log("axios get /:id error: ", err.message);
     }
-    // axios
-    //   .get(url, {
-    //     params: {
-    //       id: id,
-    //     },
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json",
-    //     },
-    //   })
-    //   .then(function (response) {
-    //     // console.log("fetching from api: ", url, response);
-    //     // console.log("Response: ", response.data);
-    //     // setProvider(response.data);
-    //     setProvider({ fakeProvider });
-    //     console.log(provider);
-    //   })
-    //   .catch((err) => console.log(err, "couldn't find provider"));
   };
 
   useEffect(() => {
@@ -60,42 +57,77 @@ export const ProviderDetailsPage = (props) => {
     };
   }, []);
 
-  return (
-    <div className="details">
-      <Breadcrumb>
-        <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
-        <Breadcrumb.Item href="/providers">Back</Breadcrumb.Item>
-        <Breadcrumb.Item active>Details</Breadcrumb.Item>
-      </Breadcrumb>
-      <Container>
-        <Row>
-          <Col xs="8">
-            {" "}
-            <Card>
-              <Card.Header>
-                {fake.serviceType.map((service, i) => {
-                  return (
-                    service + (i < fake.serviceType.length - 2 ? ", " : " & ")
-                  );
-                })}
-              </Card.Header>
-              <Card.Body>
-                <Card.Title>
-                  {fake.details.first_name + " " + fake.details.last_name}
-                </Card.Title>
-                <Card.Text>{fake.description}</Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs="4">
-          <Card>
-          
-          <img width="100%" src={fake.images[0].imageUrl} alt="profile" />
-          </Card>
-          </Col>
-        </Row>
-      </Container>
-    </div>
+  const renderServices = () => {
+    // const data = provider;
+    // console.log("Render services: ", data.serviceType);
+    return provider.serviceType.map((service, idx) => {
+      const Icon = Icons[idx];
+
+      return (
+        <div>
+          <Icon size="28px" style={{ color: "#6dcce8" }} />
+          <span>&nbsp;&nbsp;</span>
+          <span>{service}</span>
+          <span>&nbsp;&nbsp;</span>
+        </div>
+      );
+    });
+  };
+
+  return loading ? (
+    <Loader />
+  ) : (
+    { provider } && (
+      <div className="details">
+        <Breadcrumb>
+          <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+          <Breadcrumb.Item href="/providers">Back</Breadcrumb.Item>
+          <Breadcrumb.Item active>Details</Breadcrumb.Item>
+        </Breadcrumb>
+        <Container>
+          <Row>
+            <Col xs="8">
+              {" "}
+              <Container>
+                <Card.Header>
+                  <Card.Title>
+                    {provider.details.first_name +
+                      " " +
+                      provider.details.last_name}
+                  </Card.Title>
+                </Card.Header>
+                <Card.Header>
+                  <GoLocation />
+                  <span>&nbsp;&nbsp;</span>
+                  {provider.address.city}
+                </Card.Header>
+                <Card.Body>
+                  <Card.Text>{provider.description}</Card.Text>
+                </Card.Body>
+              </Container>
+            </Col>
+            <Col xs="4">
+              <Container>
+                <Card.Header>Service & Rates</Card.Header>
+                <Card.Body>{renderServices()}</Card.Body>
+                <Card.Body className="text-center">
+                  <Button variant="info">Contact</Button>
+                </Card.Body>
+                <Card.Body>
+                  From {provider.price}
+                  <span>&nbsp;&#8362;</span>/day
+                </Card.Body>
+                <img
+                  width="100%"
+                  src={provider.images[0].imageUrl}
+                  alt="profile"
+                />
+              </Container>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    )
   );
 };
 

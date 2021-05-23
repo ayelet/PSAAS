@@ -11,7 +11,8 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 // import { store } from "../../helpers/store";
 import { connect } from "react-redux";
 import { addFavorite, removeFavorite } from "../../actions";
-import rollingCat from "../../assets/img/rolling cat.gif";
+
+import Loader from "../Loader/Loader";
 
 ProviderCard.propTypes = {
   addFavorite: PropTypes.func,
@@ -64,26 +65,17 @@ export function ProviderCard(props) {
   //   favorite();
   // };
 
-  const favorite = (id) => {
+  const favorite = (provider) => {
     // -   this.setState({ favourite: !this.state.favourite });
     // const { favorite, removeFavorite, addFavorite } = props;
     // console.log(favorite);
     if (props.favorite) {
-      removeFavorite(id);
+      removeFavorite(provider._id);
     } else {
-      addFavorite(id);
+      addFavorite(provider._id);
     }
   };
 
-  const renderLoader = () => {
-    return (
-      <Container className="loader" center>
-        <img src={rollingCat} alt="rolling cat" />
-
-        <h3>Loading...</h3>
-      </Container>
-    );
-  };
 
   const renderListItem = (provider) => {
     console.log("card of provider: ", provider);
@@ -97,7 +89,11 @@ export function ProviderCard(props) {
         <Card.Body>
           <Card.Title>
             {provider.details.first_name + " " + provider.details.last_name}
-            <button onClick={favorite} type="button" className="fav-btn">
+            <button
+              onClick={() => favorite(provider)}
+              type="button"
+              className="fav-btn"
+            >
               {props.favorite ? (
                 <FaRegHeart className="fa-heart" />
               ) : (
@@ -123,9 +119,11 @@ export function ProviderCard(props) {
   return (
     <Container>
       <Row className="text-center">
-        {loading
-          ? renderLoader()
-          : providers.map((provider) => renderListItem(provider))}
+        {loading ? (
+          <Loader />
+        ) : (
+          providers.map((provider) => renderListItem(provider))
+        )}
       </Row>
     </Container>
   );

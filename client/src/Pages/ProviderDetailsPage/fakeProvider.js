@@ -12,6 +12,7 @@ export const fakeProvider = {
       street: "641 Chinook Street",
       city: "Kiryat Byalik",
     },
+    price: 80,
     availability: {
       from: "2021-05-07T20:01:10.976Z",
       now: "2021-05-07T20:01:10.976Z",
