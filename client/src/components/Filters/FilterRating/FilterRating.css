@@ -13,5 +13,10 @@
 }
 
 .reviews-filter label {
-  color: #007bff;
+  color: #6dcce8;
+}
+
+.reviews-filter label:hover,
+label:checked {
+  color: #0f4e91;
 }

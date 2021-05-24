@@ -4,7 +4,7 @@ import rollingCat from "../../assets/img/rolling cat.gif";
 
 const Loader = () => {
   return (
-    <Container className="loader" center>
+    <Container className="loader text-center">
       <img src={rollingCat} alt="rolling cat" />
 
       <h3>Loading...</h3>

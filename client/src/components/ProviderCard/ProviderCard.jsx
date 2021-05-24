@@ -26,10 +26,12 @@ ProviderCard.propTypes = {
 };
 
 export function ProviderCard(props) {
-  // export const ProviderCard = (props) => {
   const [providers, setProviders] = useState([]);
-  const [filteredProviders, setFilteredProviders] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
   const [displayFiltered, setDisplayFiltered] = useState(false);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(0);
+
   const [loading, setLoading] = useState(true);
   // const [isFav, setIsFav] = useState(false);
   const url = "/api/providers";
@@ -53,6 +55,29 @@ export function ProviderCard(props) {
     //eslint disable
   }, []);
 
+  //////////////////////
+  useEffect(() => {
+    const tempList = [...providers];
+
+    if (displayFiltered) {
+      let minPrice = 0;
+      let maxPrice = 50;
+      let filteredList = tempList.filter(
+        (item) => item.price <= maxPrice && item.price >= minPrice
+      );
+      setFilteredList(filteredList);
+    }
+  }, [displayFiltered, filteredList]);
+
+  // const onSearch = (e) => {
+  //   setSearchTerm(e.target.value);
+  // };
+  const onFilterByPrice = (min, max) => {
+    setMinPrice = min;
+    setMaxPrice = max;
+  };
+  /////////////////////
+
   // const toggleFavorite = (provider) =>
   //   dispatch({
   //     type: "ADD_FAV",
@@ -75,7 +100,6 @@ export function ProviderCard(props) {
       addFavorite(provider._id);
     }
   };
-
 
   const renderListItem = (provider) => {
     console.log("card of provider: ", provider);
