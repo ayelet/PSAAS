@@ -16,7 +16,7 @@ const HomePage = () => {
   const [props, set] = useSpring(() => ({
     xys: [0, 0, 1],
     // config: { mass: 5, tension: 350, friction: 40 },
-    config: { mass: 5, tension: 350, friction: 20 },
+    config: { mass: 5, tension: 500, friction: 20 },
   }));
 
   return (
