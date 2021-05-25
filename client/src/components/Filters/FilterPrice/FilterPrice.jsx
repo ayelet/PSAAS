@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Col, Row } from "react-bootstrap";
 import RangeSlider from "react-bootstrap-range-slider";
 
@@ -6,7 +6,7 @@ import "./FilterPrice.css";
 
 const FilterPrice = (props) => {
   // const { parentCallback, maxValue, filterPrice } = props;
-  const [minValue, setMinValue] = useState(0);
+  // const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(50);
   const [priceFilter, setPriceFilter] = useState(false);
 
@@ -21,12 +21,12 @@ const FilterPrice = (props) => {
     return () => {
       // cleanup;
     };
-  }, [maxValue, priceFilter]);
+  }, [maxValue, priceFilter, props]);
 
   return (
     <div>
       <Form.Group controlId="maxPrice">
-        <Form.Label inline>Price (&#8362;)</Form.Label>
+        <Form.Label>Price (&#8362;)</Form.Label>
         <Form.Check
           defaultChecked
           key="1"
@@ -60,9 +60,8 @@ const FilterPrice = (props) => {
             />
           </Col>
           <Col xs="6">
-            <Form.Label inline for="max-input">
-              Max.{" "}
-            </Form.Label>
+            {/* <Form.Label for="max-input">Max. </Form.Label> */}
+            <Form.Label>Max. </Form.Label>
             <Form.Control
               name="max-input"
               value={maxValue}
