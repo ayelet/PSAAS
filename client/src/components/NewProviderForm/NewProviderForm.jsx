@@ -3,6 +3,7 @@ import "./NewProviderForm.css";
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 // import { application } from "express";
 
 // let user1 = {
@@ -58,6 +59,7 @@ async function addProvider(provider) {
 }
 
 const NewProviderForm = () => {
+  const history = useHistory();
   //   const [user, setUser] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -93,29 +95,36 @@ const NewProviderForm = () => {
   //TODO-ADD authentication check to form
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const provider = await addProvider({
-      details: {
-        first_name: firstName,
-        last_name: lastName,
-        gender: "Female",
-        email: email,
-        password: password,
-        phone: "933-244-7195",
-      },
-      address: { city, street },
-      images: [
-        {
-          imageUrl: "https://img.etimg.com/thumb/msid-75599221",
+    try {
+      const provider = await addProvider({
+        details: {
+          first_name: firstName,
+          last_name: lastName,
+          gender: "Female",
+          email: email,
+          password: password,
+          phone: "933-244-7195",
         },
-        {
-          imageUrl:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0Ehof1XzEvsummQTI2l5qBt0Bibd-BMMiqw&usqp=CAU",
-        },
-      ],
+        address: { city, street },
+        images: [
+          {
+            imageUrl: "https://img.etimg.com/thumb/msid-75599221",
+          },
+          {
+            imageUrl:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0Ehof1XzEvsummQTI2l5qBt0Bibd-BMMiqw&usqp=CAU",
+          },
+        ],
 
-      ratings: [],
-      description: description,
-    });
+        ratings: [],
+        description: description,
+      });
+      history.push("/providers");
+    } catch (err) {
+      console.log("error in registration", e.message);
+    } finally {
+      // window.location.reload();
+    }
   };
 
   const onFileSelected = (e) => {

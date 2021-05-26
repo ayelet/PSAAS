@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-// import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Card, Button, Form, Container } from "react-bootstrap";
 
 import { connect } from "react-redux";
 import { userActions, register } from "../../actions";
 import axios from "axios";
 export default function SignUp(props) {
+  const history = useHistory();
   // console.log("props:", props);
 
   // const [password, setPassword] = useState("");
@@ -40,14 +41,21 @@ export default function SignUp(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/users/", {
-        email: user.email,
-        password: user.password,
-      });
-      localStorage.setItem("token", data.token);
-
+      const headers = {
+        headers: { "Content-Type": "application/json" },
+      };
+      const { data } = await axios.post(
+        "/api/users/",
+        {
+          email: user.email,
+          password: user.password,
+        },
+        { header: headers }
+      );
+      localStorage.setItem("token", JSON.stringify(data.token));
+      // userHasAuthenticated(true);
       console.log("returning data from registration:", data);
-      //history.push('/')
+      history.push("/providers");
     } catch (e) {
       console.log("error in registration", e.message);
     } finally {
