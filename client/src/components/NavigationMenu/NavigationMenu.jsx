@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Logo from "../../assets/img/Logo.png";
 import { FormControl, InputGroup, Button } from "react-bootstrap";
+import { NavDropdown } from "react-bootstrap";
 
 function NavigationMenu(props) {
   const [navbarCollapsed, setNavbarCollapsed] = useState(false);
@@ -74,12 +75,24 @@ function NavigationMenu(props) {
               <FaUserCircle className="login-icon ml-2" />
             </Link>
           </li>
+          <li className="nav-item">
+            <li>
+              <FaUserCircle className="login-icon ml-2" />
+            </li>
+            <NavDropdown title="" id="basic-nav-dropdown">
+              <NavDropdown.Item href="#">My Dashboard</NavDropdown.Item>WW
+              <NavDropdown.Item href="#">Another action</NavDropdown.Item>
+              <NavDropdown.Item href="#">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#">Separated link</NavDropdown.Item>
+            </NavDropdown>
+          </li>
 
           {/*  <li className="nav-item">
             <Link to="/Cart" className="nav-link text-white">
               <FaShoppingCart className="cart-icon" />
               <span className="badge badge-notify">{cartQty}</span>
-            </Link>
+            </Link>f
           </li> */}
         </ul>
       </div>

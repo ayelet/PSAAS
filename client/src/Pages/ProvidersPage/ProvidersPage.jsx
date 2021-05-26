@@ -9,6 +9,7 @@ import FilterProviderType from "../../components/Filters/FilterProviderType/Filt
 import FilterPrice from "../../components/Filters/FilterPrice/FilterPrice";
 import { Form, Button } from "react-bootstrap";
 import ProvidersList from "../../components/ProvidersList/ProvidersList";
+import ProvidersMap from "../../components/ProvidersMap/ProvidersMap";
 // import { Card } from "react-bootstrap";
 
 export const ProvidersPage = () => {
@@ -135,6 +136,9 @@ export const ProvidersPage = () => {
           displayFiltered={displayFiltered}
         />
       </main>{" "}
+      <aside className="providers-map">
+        <ProvidersMap />
+      </aside>
       <hr />
       <ProvidersList />
     </div>

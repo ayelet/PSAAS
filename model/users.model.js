@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
   },
   email: {
     type: String,
-    unique: true,
+    unique: false, //TODO: change it to true for unique emails registration later
     required: true,
     trim: true,
     lowercase: true,

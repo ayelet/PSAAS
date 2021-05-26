@@ -29,6 +29,7 @@ export default function LoginPage(props) {
       setLoading(true);
       await props.login(emailRef.current.value, passwordRef.current.value);
       history.push("/");
+      
     } catch {
       setError("Failed to log in");
     }

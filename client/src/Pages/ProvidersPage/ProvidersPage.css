@@ -1,6 +1,6 @@
 .providers-page {
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 5fr 3fr;
 }
 
 .filter-wrapper {
@@ -8,4 +8,8 @@
   border-radius: 8px;
   margin: 4px;
   padding: 4px;
+}
+
+.providers-map {
+  margin: 40px 20px;
 }

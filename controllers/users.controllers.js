@@ -70,7 +70,8 @@ const addUser = async (req, res) => {
   });
   try {
     await user.save();
-    const token = user.generateAuthToken();
+    const token = await user.generateAuthToken();
+    console.log("token created in backend: ", token);
     return res.status(201).json({ user, token });
   } catch (err) {
     console.log("error in adding user: ", err);
@@ -126,12 +127,10 @@ const loginUser = async (req, res) => {
 // Register user (for token only, do not add to database)
 const registerUser = async (req, res) => {
   try {
-
+  } catch (err) {
+    res.status(400).send(err.message);
   }
-  catch (err) {
-    res.status(400).send(err.message)
-  }
-}
+};
 
 // Log out from one session
 const logoutUser = async (req, res) => {

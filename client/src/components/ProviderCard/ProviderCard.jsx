@@ -46,8 +46,8 @@ export function ProviderCard(props) {
         // console.log("fetching from api: ", url, response);
         setProviders(response.data);
         // console.log(providers);
+        setLoading(false);
       });
-      setLoading(false);
     } catch (err) {
       console.log("Error in fetching data from server ", err);
     }

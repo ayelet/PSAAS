@@ -5,9 +5,10 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 // import { fakeProvider } from "./fakeProvider";
 import { GiDogBowl, GiDogHouse, GiJumpingDog } from "react-icons/gi";
-import { FaTaxi } from "react-icons/fa";
+import { FaTaxi, FaPaw } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
 import Loader from "../../components/Loader/Loader";
+import { IoPawOutline } from "react-icons/io5";
 
 // const Console = (prop) => (
 //   console[Object.keys(prop)[0]](...Object.values(prop)), null // ➜ React components must return something
@@ -74,13 +75,33 @@ export const ProviderDetailsPage = (props) => {
     });
   };
 
+  const getReviews = () => {
+    let sum = provider.ratings.reduce((sum, rating) => sum + rating.score, 0);
+    let avgRatings = Math.ceil(sum / provider.ratings.length);
+    // <FaPaw /> <FaPaw /> <IoPawOutline /> <IoPawOutline />
+    const items = [];
+    {
+      for (let i = 0; i < avgRatings; i++)
+        items.push(<FaPaw style={{ margin: "0 2px", color: "#539eb5" }} />);
+      for (let i = avgRatings; i < 5; i++)
+        items.push(
+          <IoPawOutline style={{ margin: "0 2px", color: "#539eb5" }} />
+        );
+    }
+    return (
+      <span>
+        {items} ({provider.ratings.length} Reviews)
+      </span>
+    );
+  };
+
   return loading ? (
     <Loader />
   ) : (
     { provider } && (
       <div className="details">
         <Breadcrumb>
-          <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+          <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
           <Breadcrumb.Item href="/providers">Back</Breadcrumb.Item>
           <Breadcrumb.Item active>Details</Breadcrumb.Item>
         </Breadcrumb>
@@ -110,6 +131,9 @@ export const ProviderDetailsPage = (props) => {
               <Container>
                 <Card.Header>Service & Rates</Card.Header>
                 <Card.Body>{renderServices()}</Card.Body>
+
+                <hr class="mt-2 mb-3" />
+                <Card.Body>{getReviews()}</Card.Body>
                 <Card.Body className="text-center">
                   <Button variant="info">Contact</Button>
                 </Card.Body>
