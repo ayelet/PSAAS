@@ -26,6 +26,7 @@ const FilterProviderType = (props) => {
         <div key={`inline-${type}`} className="mb-3">
           <Form.Check
             inline
+            defaultChecked
             label="Pet Sitting"
             name="group1"
             type={type}
@@ -34,6 +35,7 @@ const FilterProviderType = (props) => {
           />
           <Form.Check
             inline
+            defaultChecked
             label="Dog Walking"
             name="group1"
             type={type}
@@ -42,6 +44,7 @@ const FilterProviderType = (props) => {
           />
           <Form.Check
             inline
+            defaultChecked
             label="Pet Boarding"
             name="group1"
             type={type}
@@ -50,6 +53,7 @@ const FilterProviderType = (props) => {
           />
           <Form.Check
             inline
+            defaultChecked
             label="Pet Taxi"
             name="group1"
             type={type}
