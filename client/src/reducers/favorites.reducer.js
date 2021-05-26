@@ -1,27 +1,25 @@
 import { favoritesConstants } from "../constants";
 
-let favs = JSON.parse(localStorage.getItem("favorites"));
+let localFaves = JSON.parse(localStorage.getItem("favorites"));
 // const initialState = user ? { loggedIn: true, user } : {};
-const initialState = [];
-
-//  const updateFavouriteState = (index, newValue, points) => {
-// // +   const updatedPoint = points[index];
-//    updatedPoint.favourite = newValue;
-
-//    return [...points.slice(0, index), updatedPoint, ...points.slice(index + 1)];
-//    };
+// const initialState = [];
+const initialState = localFaves ? [...localFaves] : [];
 
 export function favorites(state = initialState, action) {
-  console.log("fav reducer: ", state, favs);
+  console.log("^^^ fav reducer: ", state);
   switch (action.type) {
     case favoritesConstants.FAVORITE_ADDED:
       return {
         ...state,
-        id: action.id,
+        faves: [...state.faves, action.provider],
       };
+
     case favoritesConstants.FAVORITE_REMOVED:
-      return state;
-    // return { favs.filter(fav => fav.id != action.id)}
+      // return {state.filter((item) => item !== action.id)};
+      // return state;
+      return {
+        faves: [state.faves.filter((fav) => fav._id !== action.payload._id)],
+      };
     default:
       return state;
   }

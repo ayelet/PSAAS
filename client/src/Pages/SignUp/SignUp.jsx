@@ -1,143 +1,62 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+// import { Link } from "react-router-dom";
 import { Card, Button, Form, Container } from "react-bootstrap";
 
-import { userActions } from "../../actions";
+import { connect } from "react-redux";
+import { userActions, register } from "../../actions";
+import axios from "axios";
+export default function SignUp(props) {
+  // console.log("props:", props);
 
-export default function Signup(props) {
-  console.log("props:", props);
-  // constructor(props) {
-  //   super(props);
-
-  // this.state = {
-  //   user: {
-  //     firstName: "",
-  //     lastName: "",
-  //     userName: "",
-  //     password: "",
-  //   },
-  //   submitted: false,
-  // };
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [user, setUser] = useState({});
 
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-  //   const { user } = state;
-  //   // setState({
-  //   //   user: {
-  //   //     ...user,
-  //   //     [name]: value,
-  //   //   },
-  //   // });
+  const handleChange = (event) => {
+    //   const { name, value } = event.target;
+    const { name, value } = event.target;
+    // console.log("onchnage: ", name, value);
+    setUser({ ...user, [name]: value });
+    // console.log("user on change: ", user);
+  };
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   setSubmitted(true);
+
+  //   console.log("registering: ", user);
+  //   if (user.email && user.password) {
+  //     console.log("email & pass validated");
+  //     // const user = { email, password };
+  //     // props.register(user);
+  //     userActions.register(user);
+  //   }
+  //   // console.log("state: ", state);
+  //   console.log("props: ", props);
   // };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const { data } = await axios.post("/api/users/", {
+        email: user.email,
+        password: user.password,
+      });
+      localStorage.setItem("token", data.token);
 
-    setSubmitted(true);
-    // const { user } = state;
-    console.log("registering: ", email, password);
-    if (email && password) {
-      props.register(email, password);
+      console.log("returning data from registration:", data);
+      //history.push('/')
+    } catch (e) {
+      console.log("error in registration", e.message);
+    } finally {
+      // window.location.reload();
     }
   };
 
   const { registering } = props;
-  // const { user, submitted } = state;
   return (
-    //   <div className="col-md-6 col-md-offset-3">
-    //     <h2>Register</h2>
-    //     <form name="form" onSubmit={handleSubmit}>
-    //       <div
-    //         className={
-    //           "form-group" + (submitted && !firstName ? " has-error" : "")
-    //         }
-    //       >
-    //         <label htmlFor="firstName">First Name</label>
-    //         <input
-    //           type="text"
-    //           className="form-control"
-    //           name="firstName"
-    //           value={firstName}
-    //           onChange={(e) => setFirstName(e.target.value)}
-    //         />
-    //         {submitted && !firstName && (
-    //           <div className="help-block">First Name is required</div>
-    //         )}
-    //       </div>
-    //       <div
-    //         className={
-    //           "form-group" + (submitted && !lastName ? " has-error" : "")
-    //         }
-    //       >
-    //         <label htmlFor="lastName">Last Name</label>
-    //         <input
-    //           type="text"
-    //           className="form-control"
-    //           name="lastName"
-    //           value={lastName}
-    //           onChange={(e) => {
-    //             setLastName(e.target.value);
-    //           }}
-    //         />
-    //         {submitted && !lastName && (
-    //           <div className="help-block">Last Name is required</div>
-    //         )}
-    //       </div>
-    //       <div
-    //         className={
-    //           "form-group" + (submitted && !userName ? " has-error" : "")
-    //         }
-    //       >
-    //         <label htmlFor="userName">Username</label>
-    //         <input
-    //           type="text"
-    //           className="form-control"
-    //           name="userName"
-    //           value={userName}
-    //           onChange={(e) => setUserName(e.target.value)}
-    //         />
-    //         {submitted && !userName && (
-    //           <div className="help-block">Username is required</div>
-    //         )}
-    //       </div>
-    //       <div
-    //         className={
-    //           "form-group" + (submitted && !password ? " has-error" : "")
-    //         }
-    //       >
-    //         <label htmlFor="password">Password</label>
-    //         <input
-    //           type="password"
-    //           className="form-control"
-    //           name="password"
-    //           onChange={(e) => setPassword(e.target.value)}
-    //         />
-    //         {submitted && !password && (
-    //           <div className="help-block">Password is required</div>
-    //         )}
-    //       </div>
-    //       <div className="form-group">
-    //         <button className="btn btn-primary">Register</button>
-    //         {registering && (
-    //           <img
-    //             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-    //             alt=""
-    //           />
-    //         )}
-    //         <Link to="/login" className="btn btn-link">
-    //           Cancel
-    //         </Link>
-    //       </div>
-    //     </form>
-    //   </div>
     <Container
       className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh" }}
@@ -151,21 +70,23 @@ export default function Signup(props) {
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
+                  name="email"
                   required
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={handleChange}
                 ></Form.Control>
               </Form.Group>
               <Form.Group id="password">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
+                  name="password"
                   required
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handleChange}
                 ></Form.Control>
               </Form.Group>
               <Form.Group id="passwordConfirm ">
                 <Form.Label>Confirm password</Form.Label>
-                <Form.Control type="passwordConfirm " required></Form.Control>
+                <Form.Control type="password" required></Form.Control>
               </Form.Group>
               <Button type="submit" className="btn w-100">
                 Sign Up
@@ -182,6 +103,7 @@ export default function Signup(props) {
 }
 
 function mapState(state) {
+  console.log("mapping state to props: ", state);
   const { registering } = state.registration;
   return { registering };
 }
@@ -189,6 +111,15 @@ function mapState(state) {
 const actionCreators = {
   register: userActions.register,
 };
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     register: (key, val) => dispatch(register(key val))
+//   };
+// }
+// const actionCreators = {
+//   login: userActions.login,
+//   logout: userActions.logout,
+// };
 
-const connectedRegisterPage = connect(mapState, actionCreators)(Signup);
-export { connectedRegisterPage as RegisterPage };
+const connectedSignUp = connect(mapState, { actionCreators })(SignUp);
+export { connectedSignUp as SignUp };

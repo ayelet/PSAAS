@@ -27,21 +27,23 @@ ProviderCard.propTypes = {
 
 export function ProviderCard(props) {
   const [providers, setProviders] = useState([]);
-  const [filteredList, setFilteredList] = useState([]);
-  const [displayFiltered, setDisplayFiltered] = useState(false);
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
+  const [isFavorite, setFavorite] = useState(false);
+  // const [filteredList, setFilteredList] = useState([]);
+  // const [displayFiltered, setDisplayFiltered] = useState(false);
+  // const [minPrice, setMinPrice] = useState(0);
+  // const [maxPrice, setMaxPrice] = useState(0);
 
   const [loading, setLoading] = useState(true);
   // const [isFav, setIsFav] = useState(false);
+  // console.log("Provider page props:", props);
   const url = "/api/providers";
 
   useEffect(() => {
     // effect
     try {
-      console.log("api request ", url);
+      // console.log("api request ", url);
       axios.get(url).then(function (response) {
-        console.log("fetching from api: ", url, response);
+        // console.log("fetching from api: ", url, response);
         setProviders(response.data);
         // console.log(providers);
       });
@@ -55,27 +57,32 @@ export function ProviderCard(props) {
     //eslint disable
   }, []);
 
-  //////////////////////
-  useEffect(() => {
-    const tempList = [...providers];
-
-    if (displayFiltered) {
-      let minPrice = 0;
-      let maxPrice = 50;
-      let filteredList = tempList.filter(
-        (item) => item.price <= maxPrice && item.price >= minPrice
-      );
-      setFilteredList(filteredList);
-    }
-  }, [displayFiltered, filteredList]);
+  //////////////////////af
+  // useEffect(() => {
+  //   const tempList = [...providers];
+  //   console.log("Display filtered: ", props.displayFiltered);
+  //   if (props.displayFiltered) {
+  //     setLoading(true);
+  //     // let minPrice = 0;
+  //     // let maxPrice = 50;
+  //     let filteredList = tempList.filter(
+  //       // (item) => item.price <= maxPrice && item.price >= minPrice
+  //       (item) => item.price <= 70
+  //     );
+  //     setFilteredList([...filteredList]);
+  //     setLoading(false);
+  //   }
+  // }, [props.displayFiltered]);
+  ///////////////////////////////////////
 
   // const onSearch = (e) => {
   //   setSearchTerm(e.target.value);
   // };
-  const onFilterByPrice = (min, max) => {
-    setMinPrice = min;
-    setMaxPrice = max;
-  };
+  // const onFilterByPrice = (min, max) => {
+  //   setMinPrice(min);
+  //   setMaxPrice(max);
+
+  // };
   /////////////////////
 
   // const toggleFavorite = (provider) =>
@@ -94,17 +101,20 @@ export function ProviderCard(props) {
     // -   this.setState({ favourite: !this.state.favourite });
     // const { favorite, removeFavorite, addFavorite } = props;
     // console.log(favorite);
-    if (props.favorite) {
-      removeFavorite(provider._id);
+    console.log(props.favorite);
+    setFavorite(!isFavorite);
+    if (isFavorite) {
+      removeFavorite(provider);
     } else {
-      addFavorite(provider._id);
+      addFavorite(provider);
     }
   };
 
   const renderListItem = (provider) => {
-    console.log("card of provider: ", provider);
+    // console.log("card of provider: ", provider, props.filters);
     return (
       <Card
+        key={provider._id}
         style={{ width: "24rem" }}
         border="info"
         className="mt-5 ml-2 col-xs-3 text-center"
@@ -139,14 +149,25 @@ export function ProviderCard(props) {
     );
   };
 
+  // const renderFilteredList = () => {
+  //   // console.log("rendering filtered list", filteredList);
+
+  //   // return filteredList.map((provider) => renderListItem());
+  //   return <div>Filtering...</div>;
+  // };
+
   const { favorites } = props;
   return (
     <Container>
       <Row className="text-center">
         {loading ? (
           <Loader />
-        ) : (
+        ) : !props.displayFiltered ? (
           providers.map((provider) => renderListItem(provider))
+        ) : (
+          providers
+            .filter((provider) => provider.price < 50)
+            .map((provider) => renderListItem(provider))
         )}
       </Row>
     </Container>
@@ -155,12 +176,12 @@ export function ProviderCard(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addFavourite: (provider) => {
+    addFavorite: (provider) => {
       dispatch(addFavorite(provider));
     },
 
-    removeFavourite: (index) => {
-      dispatch(removeFavorite(index));
+    removeFavorite: (provider) => {
+      dispatch(removeFavorite(provider));
     },
   };
 };

@@ -3,15 +3,15 @@ import React, { useState, useEffect } from "react";
 import { Container, Breadcrumb, Card, Row, Col, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { fakeProvider } from "./fakeProvider";
+// import { fakeProvider } from "./fakeProvider";
 import { GiDogBowl, GiDogHouse, GiJumpingDog } from "react-icons/gi";
 import { FaTaxi } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
 import Loader from "../../components/Loader/Loader";
 
-const Console = (prop) => (
-  console[Object.keys(prop)[0]](...Object.values(prop)), null // ➜ React components must return something
-);
+// const Console = (prop) => (
+//   console[Object.keys(prop)[0]](...Object.values(prop)), null // ➜ React components must return something
+// );
 
 export const ProviderDetailsPage = (props) => {
   const [provider, setProvider] = useState();

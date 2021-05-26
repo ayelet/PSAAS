@@ -23,11 +23,7 @@ export default function IndexPage() {
         exact
         render={(props) => <LoginPage {...props} setToken={setToken} />}
       />
-      <Route
-        path="/SignUp"
-        exact
-        render={(props) => <Signup {...props} setToken={setToken} />}
-      />
+      <Route path="/SignUp" exact render={(props) => <Signup />} />
       <Route
         path="/Dashboard"
         exact

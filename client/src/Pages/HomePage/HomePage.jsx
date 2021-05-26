@@ -25,7 +25,7 @@ const HomePage = () => {
       {/* <HomeCarousel /> */}
       <Link to="/Providers" style={{ textDecoration: "none" }}>
         <animated.div
-          class="button-spring"
+          className="button-spring"
           onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
           onMouseLeave={() => set({ xys: [0, 0, 1] })}
           style={{ transform: props.xys.interpolate(trans) }}
@@ -35,7 +35,7 @@ const HomePage = () => {
       </Link>
       <Link to="/#" style={{ textDecoration: "none" }}>
         <animated.div
-          class="button-spring"
+          className="button-spring"
           onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
           onMouseLeave={() => set({ xys: [0, 0, 1] })}
           style={{ transform: props.xys.interpolate(trans) }}

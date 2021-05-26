@@ -43,19 +43,22 @@ function logout() {
   return { type: userConstants.LOGOUT };
 }
 
-function register(email, password) {
+/////////////////////////////////////////////////////
+function register(user) {
   console.log("user action: register");
-  const user = { email, password };
+  // const user = { email, password };
   return (dispatch) => {
+    console.log("dispatch register");
     dispatch(request(user));
-
     userService.register(user).then(
       (user) => {
+        console.log("dispatch register");
         dispatch(success());
         history.push("/login");
         dispatch(alertActions.success("Registration successful"));
       },
       (error) => {
+        console.log("dispatch register");
         dispatch(failure(error.toString()));
         dispatch(alertActions.error(error.toString()));
       }
@@ -72,7 +75,7 @@ function register(email, password) {
     return { type: userConstants.REGISTER_FAILURE, error };
   }
 }
-
+///////////////////////////////////////////////////////////////////
 function getAll() {
   return (dispatch) => {
     dispatch(request());

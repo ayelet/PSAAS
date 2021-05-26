@@ -1,6 +1,7 @@
 // import config from "config";
 import url from "../api/api";
 import { authHeader } from "../helpers";
+import axios from "axios";
 
 export const userService = {
   login,
@@ -52,14 +53,23 @@ function getById(id) {
   return fetch(`${url}/users/${id}`, requestOptions).then(handleResponse);
 }
 
-function register(user) {
-  const requestOptions = {
-    method: "POST",
+async function register(user) {
+  console.log("regsiter ", user);
+  // const requestOptions = {
+  //   method: "POST",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify(user),
+  // };
+  const headers = {
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
   };
 
-  return fetch(`${url}/users/register`, requestOptions).then(handleResponse);
+  // const { data } = await axios.post(url, provider, { header: headers });
+  // return fetch(`${url}/users/register`, requestOptions).then(handleResponse);
+
+  const data = await axios.post("/api/users/", user, headers);
+  console.log("returning res: ", data);
+  return data;
 }
 
 function update(user) {

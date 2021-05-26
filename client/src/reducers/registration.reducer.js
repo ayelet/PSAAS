@@ -1,6 +1,7 @@
-import { userConstants } from '../constants';
+import { userConstants } from "../constants";
 
 export function registration(state = {}, action) {
+  console.log("registration reducer: ", state, action);
   switch (action.type) {
     case userConstants.REGISTER_REQUEST:
       return { registering: true };
@@ -9,6 +10,6 @@ export function registration(state = {}, action) {
     case userConstants.REGISTER_FAILURE:
       return {};
     default:
-      return state
+      return state;
   }
 }

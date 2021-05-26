@@ -123,6 +123,16 @@ const loginUser = async (req, res) => {
   }
 };
 
+// Register user (for token only, do not add to database)
+const registerUser = async (req, res) => {
+  try {
+
+  }
+  catch (err) {
+    res.status(400).send(err.message)
+  }
+}
+
 // Log out from one session
 const logoutUser = async (req, res) => {
   try {

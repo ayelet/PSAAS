@@ -1,6 +1,6 @@
 import "./ProvidersPage.css";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import Filter from "../../components/Filters/Filter/Filter";
 import ProviderCard from "../../components/ProviderCard";
 import FilterRating from "../../components/Filters/FilterRating/FilterRating";
@@ -8,10 +8,12 @@ import FilterByDate from "../../components/Filters/FilterByDate/FilterByDate";
 import FilterProviderType from "../../components/Filters/FilterProviderType/FilterProviderType";
 import FilterPrice from "../../components/Filters/FilterPrice/FilterPrice";
 import { Form, Button } from "react-bootstrap";
+import ProvidersList from "../../components/ProvidersList/ProvidersList";
 // import { Card } from "react-bootstrap";
 
 export const ProvidersPage = () => {
-  const [filters, setFilters] = useState();
+  const [filters, setFilters] = useState([]);
+  const [displayFiltered, setDisplayFiltered] = useState(false);
   const [filterPrice, setFilterPrice] = useState(false);
   const [maxPrice, setMaxPrice] = useState(0);
   const handleFilterByRating = (data) => {
@@ -32,52 +34,85 @@ export const ProvidersPage = () => {
 
   const handleFilterByPrice = (data) => {
     console.log("Parent callback = price filter: ", data);
-    setMaxPrice(data.maxPrice);
-    setFilterPrice(data.filterPrice);
+    // setMaxPrice(data.maxValue);
+    // setFilterPrice(data.filterPrice);
     updateFilters("price");
   };
-  //////////////////////////////////
-  const addOrRemoveFilter = (item) => {
-    if (filters.includes(item)) {
-      const filteredItems = filters.filter(
-        (filteredItem) => filteredItem !== item
-      );
-      setFilters([...filteredItems]);
-    } else {
-      setFilters([...filters, item]);
-    }
+
+  const handleClearFilters = (e) => {
+    setFilters([]);
+    setDisplayFiltered(false);
+    console.log("filter display state: ", displayFiltered);
   };
+  //////////////////////////////////
+  // const addOrRemoveFilter = (item) => {
+  //   // remove
+
+  //   if (filters.includes(item)) {
+  //     console.log("removing filter");
+  //     const filteredItems = filters.filter(
+  //       (filteredItem) => filteredItem !== item
+  //     );
+  //     setFilters([...filteredItems]);
+  //   } else {
+  //     // add filter
+  //     console.log("adding filter");
+  //     setFilters([...filters, item]);
+  //   }
+  //   console.log(filters);
+
+  //   setDisplayFiltered(filters.length > 0);
+  //   console.log("filters= length: ", filters.length, displayFiltered);
+  // };
   ////////////////////////////////////
+  // const addFilter = (item) => {
+  //   if (item.active) && (!filters.includes(item))
+  //     setFilters([...filters, item])
+
+  // }
+
+  // const removeFilter = (item ) => {
+  //   if (!item.active && filters.includes(item))
+  //       const filteredItems = filters.filter(
+  //       (filteredItem) => filteredItem !== item
+  //     );
+  //     setFilters([...filteredItems]);
+  // }
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("Form submitted");
   };
 
-  const updateFilters = (updatedFilter) => {
+  const updateFilters = (name) => {
     let data = {};
-    switch (updatedFilter) {
+    switch (name) {
       case "price":
-        return data = {
-          filter: "price",
+        data = {
+          name: name,
           active: filterPrice,
           min: 0,
           max: maxPrice,
         };
-        // addOrRemoveFilter(data);
+        break;
       default:
-        return data;
+        break;
     }
+    if (data.active) {
+      let tempFilters = filters.filter((item) => item.name !== data.name);
+      setFilters([...tempFilters, data]);
+    }
+    // setFilters([...filters, data]);
+    // addOrRemoveFilter(data);
   };
 
   return (
     <div className="providers-page">
       <aside className="providers-filters">
         <Form onSubmit={handleSubmit}>
+          <Button onClick={handleClearFilters}>Clear filters</Button>
           <div className="filter-wrapper">
             <FilterRating parentCallback={handleFilterByRating} />
-          </div>
-          <div className="filter-wrapper">
-            <FilterByDate parentCallback={handleFilterByDate} />
           </div>
           <div className="filter-wrapper">
             <FilterProviderType parentCallnack={handleFilterByServiceType} />
@@ -85,14 +120,23 @@ export const ProvidersPage = () => {
           <div className="filter-wrapper">
             <FilterPrice parentCallback={handleFilterByPrice} />
           </div>
+          <div className="filter-wrapper">
+            <FilterByDate parentCallback={handleFilterByDate} />
+          </div>
           <Button variant="info" type="submit">
             Submit
           </Button>
         </Form>
       </aside>
       <main className="providers-list">
-        <ProviderCard filters={filters} />
-      </main>
+        <ProviderCard
+          filters={filters}
+          onChange={updateFilters}
+          displayFiltered={displayFiltered}
+        />
+      </main>{" "}
+      <hr />
+      <ProvidersList />
     </div>
   );
 };

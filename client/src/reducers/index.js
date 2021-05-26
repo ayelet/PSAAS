@@ -6,6 +6,7 @@ import { registration } from "./registration.reducer";
 import { users } from "./users.reducer";
 import { alert } from "./alert.reducer";
 import { favorites } from "./favorites.reducer";
+import { providers } from "./providers.reducer";
 
 const rootReducer = combineReducers({
   authentication,
@@ -13,6 +14,8 @@ const rootReducer = combineReducers({
   users,
   alert,
   favorites,
+  providers,
+  dummy: () => "hi there, I'm a dummy reducer",
 });
 
 export default rootReducer;
