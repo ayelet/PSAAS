@@ -3,7 +3,7 @@
 // dotenv.config({ path: "ENV_FILENAME" });
 const mongoose = require("mongoose");
 
-// const url = process.env.MONGODB || "test";
+// const uri = process.env.MONGODB || "test";
 const uri = require("../config/keys").databaseUri;
 const connection = mongoose.connection;
 

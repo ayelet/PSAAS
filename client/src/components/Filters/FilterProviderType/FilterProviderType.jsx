@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./FilterProviderType.css";
-import { BiHomeHeart } from "react-icons/bi";
+// import { BiHomeHeart } from "react-icons/bi";
 import { Form } from "react-bootstrap";
 
 const FilterProviderType = (props) => {

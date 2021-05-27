@@ -6,7 +6,6 @@ import "./ProvidersMap.css";
 // const AnyReactComponent = ({ text }) => <div>{text}</div>;
 const MyMarker = () => <div className="map-marker"></div>;
 
-const GOOGLE_MAP_KEY = "AIzaSyAUQ730RK1Rsk0WPS97t659_4VN1S7GN68";
 class ProvidersMap extends Component {
   static defaultProps = {
     center: {
@@ -21,7 +20,7 @@ class ProvidersMap extends Component {
       // Important! Always set the container height explicitly
       <div style={{ height: "80vh", width: "100%" }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: GOOGLE_MAP_KEY }}
+          bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >

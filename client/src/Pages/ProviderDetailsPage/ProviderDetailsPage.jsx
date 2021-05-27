@@ -137,6 +137,7 @@ export const ProviderDetailsPage = (props) => {
                 <Card.Body className="text-center">
                   <Button variant="info">Contact</Button>
                 </Card.Body>
+                <Card.Body>Available Dates: {provider.availability.froms}</Card.Body>
                 <Card.Body>
                   From {provider.price}
                   <span>&nbsp;&#8362;</span>/day

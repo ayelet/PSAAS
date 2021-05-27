@@ -7,7 +7,7 @@ const RegistrationPage = () => {
   return (
     <Container>
       <Row className="justify-content-md-center">
-        <Col xs lg="6">
+        <Col className="mt-5" xs lg="6" style={{ backgroundColor: "#F6D360" }}>
           <h1>Register for the service</h1>
           <NewProviderForm />
         </Col>

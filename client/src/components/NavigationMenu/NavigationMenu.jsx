@@ -17,8 +17,8 @@ function NavigationMenu(props) {
   // const [cartQty] = useState(props.cartQty);
 
   const menuItems = [
-    { id: 1, text: "Home", url: "/" },
-    { id: 2, text: "Pet Sitters", url: "/Providers" },
+    // { id: 1, text: "Home", url: "/" },
+    // { id: 2, text: "Services", url: "#" },
     { id: 3, text: "About Us", url: "/About" },
     { id: 5, text: "Register as a Pet Sitter", url: "/RegisterProvider" },
     { id: 4, text: "Contact", url: "/Contact" },
@@ -41,6 +41,26 @@ function NavigationMenu(props) {
       </button>
       <div className={navbarClassName}>
         <ul className="navbar-nav ml-auto mr-5">
+          <li key="Home" className="nav-item">
+            <Link to="/" className="nav-link text-white">
+              Home
+            </Link>
+          </li>
+          <li className="nav-item">
+            <NavDropdown title="Services" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/providers/">All</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/providers/pet-sitting">
+                Pet Sitting
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/providers/dog-walking">
+                Dog Walkings
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/providers/pet-boarding">
+                Pet Boarding
+              </NavDropdown.Item>
+            </NavDropdown>
+          </li>
           {menuItems.map((item) => {
             return (
               <li key={item.id} className="nav-item">
@@ -74,18 +94,6 @@ function NavigationMenu(props) {
             <Link to="/Login" className="nav-link text-white">
               <FaUserCircle className="login-icon ml-2" />
             </Link>
-          </li>
-          <li className="nav-item">
-            <li>
-              <FaUserCircle className="login-icon ml-2" />
-            </li>
-            <NavDropdown title="" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#">My Dashboard</NavDropdown.Item>WW
-              <NavDropdown.Item href="#">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#">Separated link</NavDropdown.Item>
-            </NavDropdown>
           </li>
 
           {/*  <li className="nav-item">

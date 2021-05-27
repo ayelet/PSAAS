@@ -27,6 +27,10 @@ router
     console.log("Add provider", req.body);
     providersControllers.addProvider(req, res);
   })
+  .post("/uploadImage/:id", (req, res) => {
+    console.log("upload an image", req.body);
+    providersControllers.uploadImage(req, res);
+  })
   // .post("/login", (req, res) => {
   //   console.log("Provider Login");
   //   providersControllers.loginProvider(req, res);

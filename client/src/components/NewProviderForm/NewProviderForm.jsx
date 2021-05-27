@@ -38,7 +38,6 @@ import { useHistory } from "react-router-dom";
 //   },
 // };
 
-//TODO: change fields for provider
 async function addProvider(provider) {
   try {
     const headers = {
@@ -58,6 +57,24 @@ async function addProvider(provider) {
   }
 }
 
+async function uploadImage(id, file) {
+  try {
+    const fd = new FormData();
+    // console.log(selectedFile);
+    fd.append("image", file[0], file.name);
+    const res = axios({
+      method: "post",
+      url: "/providers/uploadImage/" + id,
+      data: fd,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    // const res = await axios.post("/providers/imageUpload/:id", fd);
+    console.log(res);
+  } catch (err) {
+    console.log("Error uploading image: ", err.message);
+  }
+}
+
 const NewProviderForm = () => {
   const history = useHistory();
   //   const [user, setUser] = useState(null);
@@ -65,13 +82,16 @@ const NewProviderForm = () => {
   const [lastName, setLastName] = useState("");
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
   const [serviceTypes, setServiceTypes] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [price, setPrice] = useState(0);
 
   const handleChange = (e) => {
+    // console.log(e.target.id, e.target.value, e.target.name);
     if (e.target.id === "firstName") {
       setFirstName(e.target.value);
     } else if (e.target.id === "lastName") {
@@ -84,8 +104,25 @@ const NewProviderForm = () => {
       setCity(e.target.value);
     } else if (e.target.id === "street") {
       setStreet(e.target.value);
+    } else if (e.target.id === "price") {
+      setPrice(e.target.value);
+    } else if (e.target.id.includes("gender")) {
+      // console.log(e.target.id, e.target.value);
+      setGender(e.target.value);
     } else if (e.target.id === "description") {
+      console.log("dsc:", e.target.value);
       setDescription(e.target.value);
+    } else if (e.target.id.includes("checkbox")) {
+      // console.log(serviceTypes, e.target.value, e.target.checked);
+      if (e.target.checked) setServiceTypes([...serviceTypes, e.target.name]);
+      else {
+        const array = [...serviceTypes];
+        // const index = array.indexOf(e.target.name);
+        // // console.log("index :", index, e.target.name);
+        // if (index !== -1) array.splice(index, 1);
+        // setServiceTypes(array);
+        setServiceTypes(array.filter((service) => service !== e.target.name));
+      }
     } else if (e.target.id === "image1") {
       //   this.setState({ imageurl: e.target.value });
       console.log(e.target.value);
@@ -95,20 +132,24 @@ const NewProviderForm = () => {
   //TODO-ADD authentication check to form
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("^^^^^provider new: ", description, serviceTypes);
     try {
       const provider = await addProvider({
         details: {
           first_name: firstName,
           last_name: lastName,
-          gender: "Female",
+          gender: gender,
           email: email,
           password: password,
           phone: "933-244-7195",
         },
         address: { city, street },
+        price: price,
+        serviceTypes: serviceTypes,
         images: [
           {
-            imageUrl: "https://img.etimg.com/thumb/msid-75599221",
+            imageUrl:
+              "https://images.ctfassets.net/2t8dhn7s97w9/43QTmwfv1Da9jl9G2kf4Eb/ac724988417c66238ef7b9ef3594054c/DDC_1.png",
           },
           {
             imageUrl:
@@ -119,6 +160,7 @@ const NewProviderForm = () => {
         ratings: [],
         description: description,
       });
+      await uploadImage(provider.id, selectedFile);
       history.push("/providers");
     } catch (err) {
       console.log("error in registration", e.message);
@@ -134,10 +176,27 @@ const NewProviderForm = () => {
   };
 
   const onFileUpload = async (e) => {
-    const fd = new FormData();
-    fd.append("image", selectedFile, selectedFile.name);
-    const res = await axios.post("/providers/imageUpload/:id", fd);
-    console.log(res);
+    // const fd = new FormData();
+    // console.log(selectedFile);
+    // fd.append("image", selectedFile[0], selectedFile.name);
+    // const res = axios({
+    //   method: "post",
+    //   url: "/providers/me/  const fd = new FormData();
+    // console.log(selectedFile);
+    // fd.append("image", selectedFile[0], selectedFile.name);
+    // const res = axios({
+    //   method: "post",
+    //   url: "/providers/me/imageUpload/",
+    //   data: fd,
+    //   headers: { "Content-Type": "multipart/form-data" },
+    // });
+    // // const res = await axios.post("/providers/imageUpload/:id", fd);
+    // console.log(res);/",
+    //   data: fd,
+    //   headers: { "Content-Type": "multipart/form-data" },
+    // });
+    // // const res = await axios.post("/providers/imageUpload/:id", fd);
+    // console.log(res);
   };
 
   return (
@@ -192,37 +251,51 @@ const NewProviderForm = () => {
           onChange={handleChange}
         />
       </Form.Group>
-      <Form.Group controlId="exampleForm.description">
+      <Form.Group controlId="description">
         <Form.Label>Example textarea</Form.Label>
         <Form.Control as="textarea" rows={3} onChange={handleChange} />
       </Form.Group>
       <Form.Group controlId="gender">
         <Form.Label>Gender</Form.Label>
-        {["radio"].map((type) => (
-          <div key={`inline-${type}`} className="mb-3">
-            <Form.Check
-              inline
-              label="Female"
-              name="female"
-              type={type}
-              id={`inline-${type}-1`}
-            />
-            <Form.Check
-              inline
-              label="Male"
-              name="male"
-              type={type}
-              id={`inline-${type}-2`}
-            />
-            <Form.Check
-              inline
-              label="Other"
-              name="other"
-              type={type}
-              id={`inline-${type}-2`}
-            />
-          </div>
-        ))}
+
+        <div key={`inline-radio`} className="mb-3">
+          <Form.Check
+            inline
+            value="Female"
+            label="Female"
+            name="gender"
+            type="radio"
+            id={`gender-radio-1`}
+            onChange={handleChange}
+          />
+          <Form.Check
+            inline
+            value="Male"
+            label="Male"
+            name="gender"
+            type="radio"
+            id={`gender-radio-2`}
+            onChange={handleChange}
+          />
+          <Form.Check
+            inline
+            value="Other"
+            label="Other"
+            name="gender"
+            type="radio"
+            id={`gender-radio-3`}
+            onChange={handleChange}
+          />
+        </div>
+      </Form.Group>
+      <Form.Group controlId="price">
+        <Form.Label>Price/Day</Form.Label>
+        <Form.Control
+          inline
+          type="number"
+          placeholder="Price"
+          onChange={handleChange}
+        />
       </Form.Group>
       <Form.Group controlId="services">
         <Form.Label>
@@ -233,23 +306,26 @@ const NewProviderForm = () => {
             <Form.Check
               inline
               label="Pet Sitting"
-              name="group1"
+              name="Pet Sitting"
               type={type}
-              id={`inline-${type}-1`}
+              id={`${type}-1`}
+              onChange={handleChange}
             />
             <Form.Check
               inline
               label="Dog Walking"
-              name="group1"
+              name="Dog Walking"
               type={type}
-              id={`inline-${type}-2`}
+              id={`${type}-2`}
+              onChange={handleChange}
             />
             <Form.Check
               inline
               label="Pet Boarding"
-              name="group1"
+              name="Pet Boarding"
               type={type}
-              id={`inline-${type}-2`}
+              id={`${type}-2`}
+              onChange={handleChange}
             />
           </div>
         ))}
@@ -261,7 +337,9 @@ const NewProviderForm = () => {
           label="Add your image"
           onChange={onFileSelected}
         />
-        <Button onClick={onFileUpload}>Upload</Button>
+        <Button variant="info" inline onClick={onFileUpload}>
+          Upload
+        </Button>
       </Form.Group>
 
       <Button variant="info" type="submit">

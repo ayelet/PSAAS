@@ -12,6 +12,7 @@ import { ProvidersPage } from "../ProvidersPage/ProvidersPage";
 import { ProviderDetailsPage } from "../ProviderDetailsPage/ProviderDetailsPage";
 import RegistrationPage from "../RegistrationPage/RegistrationPage";
 import Signup from "../SignUp/SignUp";
+import { PrivateRoute } from "../../components/PrivateRoute";
 
 export default function IndexPage() {
   const { token, setToken } = useToken();
@@ -31,6 +32,7 @@ export default function IndexPage() {
       />
       <Route path="/Providers" exact component={ProvidersPage} />
       <Route path="/Provider/:id" exact component={ProviderDetailsPage} />
+      <Route path="/Provider/service/:name" exact component={ProvidersPage} />
       <Route
         path="/RegisterProvider"
         exact

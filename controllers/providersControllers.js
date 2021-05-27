@@ -61,7 +61,7 @@ const addProvider = async (req, res) => {
       details: req.body.details,
       address: req.body.address,
       ratings: req.body.ratings,
-      serviceTypes: req.body.serviceTypes,
+      serviceType: req.body.serviceTypes,
       images: [...req.body.images],
     });
     const newProvider = await provider.save();
@@ -107,7 +107,8 @@ const uploadImage = async (req, res) => {
   try {
     // const email1 = "bdastc@xing.com";
     // let provider = await providerModel.find({ "details.email": email1 }).exec();
-    let provider = await providerModel.findById("60959c86e74109430467e192");
+    const { id } = req.params;
+    let provider = await providerModel.findById(id);
     console.log(req.file.originalfilename);
     providerModel.imageFile = req.file.buffer;
     console.log("provider:", typeof provider.constructor, provider);

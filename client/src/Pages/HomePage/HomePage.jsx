@@ -33,7 +33,7 @@ const HomePage = () => {
           <Button variant="info">I'm a pet owner</Button>{" "}
         </animated.div>
       </Link>
-      <Link to="/#" style={{ textDecoration: "none" }}>
+      <Link to="/RegisterProvider" style={{ textDecoration: "none" }}>
         <animated.div
           className="button-spring"
           onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
