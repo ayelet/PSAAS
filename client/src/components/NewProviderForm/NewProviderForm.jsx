@@ -132,7 +132,7 @@ const NewProviderForm = () => {
   //TODO-ADD authentication check to form
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("^^^^^provider new: ", description, serviceTypes);
+    // console.log("^^^^^provider new: ", description, serviceTypes);
     try {
       const provider = await addProvider({
         details: {
@@ -337,9 +337,9 @@ const NewProviderForm = () => {
           label="Add your image"
           onChange={onFileSelected}
         />
-        <Button variant="info" inline onClick={onFileUpload}>
+        {/*    <Button variant="info" inline onClick={onFileUpload}>
           Upload
-        </Button>
+        </Button> */}
       </Form.Group>
 
       <Button variant="info" type="submit">
